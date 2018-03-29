@@ -7,4 +7,4 @@ def Standard_nd(Z_value):                                           #표준정�
     x = Symbol('x')
     Z = x
     f = exp(-(Z)**2/2)/(sqrt(2*pi))
-    print("%0.4f"%float(Integral(f,(Z,0,Z_value)).doit().evalf()))
+    print("%0.4f"%float(Integral(f,(Z,0,Z_value))))
