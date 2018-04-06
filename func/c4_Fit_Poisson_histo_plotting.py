@@ -36,7 +36,7 @@ def Fit_Poisson_histo(filename, Xaxis_Name=''):
     FROM = Range[0]; END = Range[1];  #print(BIN_NUM, FROM, END)
     Brange = (END-FROM)/BIN_NUM; 
     t = np.arange(FROM, END, Brange) 
-    Poisson = (1/(Std * np.sqrt(2 * np.pi))*np.exp(-(t-Mean)**2/(2 * Std**2)))
+#    gaussian = (1/(Std * np.sqrt(2 * np.pi))*np.exp(-(t-Mean)**2/(2 * Std**2)))
     tt = np.arange(0, int(END)+1)
     Poisson = stats.poisson.pmf(tt, Mean); #print(Poisson)
     TJG=0
