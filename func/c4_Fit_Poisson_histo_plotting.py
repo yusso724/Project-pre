@@ -37,7 +37,7 @@ def Fit_Poisson_histo(filename, Xaxis_Name=''):
     Brange = (END-FROM)/BIN_NUM; 
     t = np.arange(FROM, END, Brange) 
     Poisson = (1/(Std * np.sqrt(2 * np.pi))*np.exp(-(t-Mean)**2/(2 * Std**2)))
-    tt = np.arange(int(FROM)-1, int(END)+1)
+    tt = np.arange(0, int(END)+1)
     Poisson = stats.poisson.pmf(tt, Mean); #print(Poisson)
     TJG=0
     for i in range(len(Poisson)):
@@ -82,7 +82,7 @@ def Fit_Poisson_histo(filename, Xaxis_Name=''):
         XLABEL = Xaxis_Name
     plt.xlabel(XLABEL)
     plt.title(filename_No_Txt)
-    SaveName = filename_No_Txt +"_normalized"+ ".pdf"
+    SaveName = filename_No_Txt +"Poisson_normalized"+ ".pdf"
     plt.grid(True)
     plt.savefig(SaveName)
 #    plt.show()
