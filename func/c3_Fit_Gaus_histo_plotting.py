@@ -82,7 +82,7 @@ def Fit_Gaus_histo(filename, Xaxis_Name=''):
     SaveName = filename_No_Txt +"Gaussian_normalized"+ ".pdf"
     plt.grid(True)
     plt.savefig(SaveName)
-#    plt.show()
+    plt.show()
     plt.close('all')
     f.close()
 

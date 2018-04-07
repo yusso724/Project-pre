@@ -85,7 +85,7 @@ def Fit_Poisson_histo(filename, Xaxis_Name=''):
     SaveName = filename_No_Txt +"Poisson_normalized"+ ".pdf"
     plt.grid(True)
     plt.savefig(SaveName)
-#    plt.show()
+    plt.show()
     plt.close('all')
     f.close()
 
