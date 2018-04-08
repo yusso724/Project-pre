@@ -7,7 +7,7 @@ sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/
 from c1_basic_statistic import *
 
 
-def Fit_Gaus_histo(filename, Xaxis_Name='', norm=0):
+def Fit_Gaus_histo(filename, Xaxis_Name='', norm=0, SIGMA=2):
 
     if(filename[0]=="/"):
         filename = filename
@@ -32,16 +32,16 @@ def Fit_Gaus_histo(filename, Xaxis_Name='', norm=0):
     Var = c1_variance(infile);
     Std = c1_standard_deviation(infile); str_Std = str(Std)
 
-    FROM = Range[0]; END = Range[1];  print(BIN_NUM, FROM, END)
+    FROM = Range[0]; END = Range[1];  #print(BIN_NUM, FROM, END)
     Brange = (END-FROM)/BIN_NUM; 
     t = np.arange(FROM, END, Brange) 
     gaussian = (1/(Std * np.sqrt(2 * np.pi))*np.exp(-(t-Mean)**2/(2 * Std**2)))
     TJG=0
     for i in range(len(gaussian)):
         TJG = TJG + gaussian[i]
-    print(TJG)
+#    print(TJG)
     TJG = Total_Entry / TJG 
-    print(TJG)
+#    print(TJG)
     for i in range(len(gaussian)):
         gaussian[i] = TJG * gaussian[i]
     #s2 = 50*np.sin(4*np.pi*t); #print(s2)
@@ -79,8 +79,30 @@ def Fit_Gaus_histo(filename, Xaxis_Name='', norm=0):
     for i in range(len(barlist)):
         barlist[i].set_color('r')
     plt.axis([X_AXIS[0],X_AXIS[BinN-1],0,Mode[2]*10/9/WEIGHT])
+    locs, labels = plt.xticks()
     TEXT = "Total Entry : " + str(Total_Entry) + "\n" + "Mean : " + str_Mean + "\n" + "Std : " + str_Std
     plt.text(Range[1]-(Range[1]-Range[0])*0.05, Mode[2]*21/20/WEIGHT, TEXT, fontsize=16, ha='right', va='top', rotation=0)
+
+    one_sigma_left = "%0.3f"%(Mean-Std); one_sigma_left = str(one_sigma_left)
+    one_sigma_right = "%0.3f"%(Mean+Std); one_sigma_right = str(one_sigma_right)
+    two_sigma_left = "%0.3f"%(Mean-2*Std); two_sigma_left = str(two_sigma_left)
+    two_sigma_right = "%0.3f"%(Mean+2*Std); two_sigma_right = str(two_sigma_right)
+    plt.text(Mean-2*Std,0,"|",fontsize=24, ha='right', va='bottom', rotation=0, color='g')
+    plt.text(Mean-2*Std,0,two_sigma_left,fontsize=7.5, ha='center', va='top', rotation=0, color='g')
+    plt.text(Mean+2*Std,0,"|",fontsize=24, ha='right', va='bottom', rotation=0, color='g')
+    plt.text(Mean+2*Std,0,two_sigma_right,fontsize=7.5, ha='center', va='top', rotation=0, color='g')
+#    plt.text(Mean,0,r"$\mu \pm 2\sigma$",fontsize=20, ha='right', va='bottom', rotation=0, color='g')
+ 
+    plt.text(Mean,0,"|",fontsize=10, ha='center', va='center', rotation=0, color='b')
+
+    plt.text(Mean-Std,0,"|",fontsize=24, ha='right', va='bottom', rotation=0, color='black')
+    plt.text(Mean-Std,0,one_sigma_left,fontsize=7.2, ha='center', va='top', rotation=0, color='black')
+    plt.text(Mean+Std,0,"|",fontsize=24, ha='right', va='bottom', rotation=0, color='black')
+    plt.text(Mean+Std,0,one_sigma_right,fontsize=7.2, ha='center', va='top', rotation=0, color='black')
+    plt.text(Mean,0,r"$\mu \pm \sigma$",fontsize=20, ha='center', va='bottom', rotation=0, color='black')
+
+
+
     plt.ylabel("Entry Number")
     if(Xaxis_Name == ''):
         XLABEL = filename_No_Txt.replace("_hist",'')
@@ -94,18 +116,20 @@ def Fit_Gaus_histo(filename, Xaxis_Name='', norm=0):
     plt.show()
     plt.close('all')
     f.close()
+    return_list = [Mean-SIGMA*Std,Mean+SIGMA*Std]
 
+    return return_list
 
 
 def main():
-    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/TESTs/project_180401/project1_10K.txt"
-#    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/TESTs/project_180324/data_txt/concrete_tree_cut_concrete_f_fineagg_hist.txt"
+#    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/TESTs/project_180401/project1_10K.txt"
+    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/TESTs/project_180401/project3_1M.txt"
 #    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/soomin/LA_s/EXE/beer_0319Mon_LA_s_tree_beer_0319Mon_LA_s_POSP_hist.txt"
 #    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/soomin/LA_s/EXE/beer_0319Mon_LA_s_tree_beer_0319Mon_LA_s_V1_hist.txt"
 #    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/soomin/LA_s/POS_NEG_PROP/execute_root/tea_0319Mon_LA_s_P_n_N_tree_cut_tea_0319Mon_LA_s_P_n_N_f_Pos_Neg_propotion_hist.txt"
 
-    Fit_Gaus_histo(inputfile, ".X-axis.", norm=0)
-#    Fit_Gaus_histo(inputfile, ".X-axis.", norm=1)
+#    Fit_Gaus_histo(inputfile, ".X-axis.", norm=0, SIGMA=2)
+    Fit_Gaus_histo(inputfile, ".X-axis.", norm=1, SIGMA=2)
 
 if __name__ == "__main__":
     main()
