@@ -8,7 +8,7 @@ sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/
 from c1_basic_statistic import *
 
 
-def Fit_Poisson_histo(filename, Xaxis_Name=''):
+def Fit_Poisson_histo(filename, Xaxis_Name='', norm=0):
 
     if(filename[0]=="/"):
         filename = filename
@@ -65,6 +65,15 @@ def Fit_Poisson_histo(filename, Xaxis_Name=''):
         Y_VALUE.append(float(yaxis))
         BinN = BinN + 1
     
+    WEIGHT = 1
+    if(norm==1):
+        WEIGHT = float(Total_Entry)
+        for i in range(len(Poisson)):
+            Poisson[i] = Poisson[i]/Total_Entry
+
+    for i in range(len(Y_VALUE)):
+        Y_VALUE[i] = float(Y_VALUE[i])/WEIGHT
+
 
     plt.figure(1)
 #    plt.plot(t,s2)
@@ -72,9 +81,9 @@ def Fit_Poisson_histo(filename, Xaxis_Name=''):
     barlist = plt.bar(X_AXIS,Y_VALUE,X_WIDTH[0],fill=False)
     for i in range(len(barlist)):
         barlist[i].set_color('r')
-    plt.axis([X_AXIS[0],X_AXIS[BinN-1],0,Mode[2]*10/9])
+    plt.axis([X_AXIS[0],X_AXIS[BinN-1],0,Mode[2]*10/9/WEIGHT])
     TEXT = "Total Entry : " + str(Total_Entry) + "\n" + "Mean : " + str_Mean + "\n" + "Std : " + str_Std
-    plt.text(Range[1]-(Range[1]-Range[0])*0.05, Mode[2]*21/20, TEXT, fontsize=16, ha='right', va='top', rotation=0)
+    plt.text(Range[1]-(Range[1]-Range[0])*0.05, Mode[2]*21/20/WEIGHT, TEXT, fontsize=16, ha='right', va='top', rotation=0)
     plt.ylabel("Entry Number")
     if(Xaxis_Name == ''):
         XLABEL = filename_No_Txt.replace("_hist",'')
@@ -92,14 +101,10 @@ def Fit_Poisson_histo(filename, Xaxis_Name=''):
 
 
 def main():
-#    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/TESTs/project_180401/project1_10K.txt"
-#    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/TESTs/project_180324/data_txt/concrete_tree_cut_concrete_f_fineagg_hist.txt"
-#    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/soomin/LA_s/EXE/beer_0319Mon_LA_s_tree_beer_0319Mon_LA_s_POSP_hist.txt"
-#    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/soomin/LA_s/EXE/beer_0319Mon_LA_s_tree_beer_0319Mon_LA_s_V1_hist.txt"
-    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/soomin/POS_NEG_Points_Gaussian/N2_execute_n_fitting/beer_0319Mon_LA_s_P_tree_beer_0319Mon_LA_s_P_Pos_score_hist.txt"
+    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/soomin/LA_s/EXE/beer_0319Mon_LA_s_tree_beer_0319Mon_LA_s_V1_hist.txt"
 
-    Fit_Poisson_histo(inputfile, ".X-axis.")
-
+#    Fit_Poisson_histo(inputfile, ".X-axis.", norm=0)
+    Fit_Poisson_histo(inputfile, ".X-axis.", norm=1)
 
 if __name__ == "__main__":
     main()
