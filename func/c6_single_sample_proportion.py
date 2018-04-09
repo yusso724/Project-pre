@@ -77,7 +77,7 @@ def Sample_proportion(proportion=0.1, event_num = 100,Title='', Xaxis_Name='', S
 #    plt.show()
     plt.close('all')
 
-    R_LIST = [Mean-2*Std, Mean+2*Std]
+    R_LIST = [Mean-SIGMA*Std, Mean+SIGMA*Std]
     return R_LIST
 
 
