@@ -71,9 +71,10 @@ def Sample_proportion(proportion=0.1, event_num = 100,Title='', Xaxis_Name='', S
         XLABEL = Xaxis_Name
     plt.xlabel(XLABEL)
     plt.ylabel("Probability")
-    SaveName = TITLE; SaveName = SaveName.replace(" ","_"); SaveName = TITLE+".pdf"
+    SaveName = TITLE; SaveName = SaveName.replace(" ","_"); SaveName = SaveName+".pdf"
+    print(SaveName)
     plt.savefig(SaveName)
-    plt.show()
+#    plt.show()
     plt.close('all')
 
     R_LIST = [Mean-2*Std, Mean+2*Std]
