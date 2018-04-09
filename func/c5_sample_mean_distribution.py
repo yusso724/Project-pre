@@ -1,4 +1,5 @@
 #Author : JUNHO LEE
+#According to central limit theorem, even though distribution of population does not belongs to Gaussian, distribution of the sample mean is gaussian, if event number bigger than 30
 from matplotlib import pyplot as plt
 import numpy as np
 import sys,os
@@ -109,23 +110,27 @@ def Fit_Gaus_histo(filename, Xaxis_Name='', norm=0, SIGMA=2):
     two_sigma_left = "%0.3f"%(Mean-2*Std); two_sigma_left = str(two_sigma_left)
     two_sigma_right = "%0.3f"%(Mean+2*Std); two_sigma_right = str(two_sigma_right)
     plt.text(Mean-2*Std,0,"|",fontsize=8, ha='right', va='bottom', rotation=0, color='black')
-    plt.text(Mean-2*Std,0,two_sigma_left,fontsize=7.5, ha='center', va='bottom', rotation=0, color='black')
+    plt.text(Mean-2*Std,0,two_sigma_left,fontsize=7.5, ha='center', va='top', rotation=0, color='black')
     plt.text(Mean+2*Std,0,"|",fontsize=8, ha='right', va='bottom', rotation=0, color='black')
-    plt.text(Mean+2*Std,0,two_sigma_right,fontsize=7.5, ha='center', va='bottom', rotation=0, color='black')
+    plt.text(Mean+2*Std,0,two_sigma_right,fontsize=7.5, ha='center', va='top', rotation=0, color='black')
 #    plt.text(Mean,0,r"$\mu \pm 2\sigma$",fontsize=20, ha='right', va='bottom', rotation=0, color='black')
  
     plt.text(Mean,0,"|",fontsize=10, ha='center', va='center', rotation=0, color='b')
 
     plt.text(Mean-Std,0,"|",fontsize=8, ha='right', va='bottom', rotation=0, color='black')
-    plt.text(Mean-Std,0,one_sigma_left,fontsize=7.2, ha='center', va='bottom', rotation=0, color='black')
+    plt.text(Mean-Std,0,one_sigma_left,fontsize=7.2, ha='center', va='top', rotation=0, color='black')
     plt.text(Mean+Std,0,"|",fontsize=8, ha='right', va='bottom', rotation=0, color='black')
-    plt.text(Mean+Std,0,one_sigma_right,fontsize=7.2, ha='center', va='bottom', rotation=0, color='black')
-    plt.text(Mean-Std,0,r"$\mu \pm \sigma$",fontsize=7, ha='right', va='bottom', rotation=0, color='black')
+    plt.text(Mean+Std,0,one_sigma_right,fontsize=7.2, ha='center', va='top', rotation=0, color='black')
+    plt.text(Mean-Std,0,r"$\mu - \sigma$",fontsize=7, ha='right', va='bottom', rotation=0, color='black')
 
-    plt.text(Mean-SSEM,0,"|",fontsize=18, ha='center', va='bottom', rotation=0, color='green')
-    plt.text(Mean-SSEM,0,"$\overline{x}  - \sigma_x$", fontsize=18, ha='right', va='bottom', rotation=0, color='green')
-    plt.text(Mean+SSEM,0,"|",fontsize=18, ha='center', va='bottom', rotation=0, color='green')
-    plt.text(Mean+SSEM,0,"$\overline{x}  + \sigma_x$", fontsize=18, ha='left', va='bottom', rotation=0, color='green')
+    sample_two_sigma_left = "%0.3f"%(Mean-2*SSEM); sample_two_sigma_left = str(sample_two_sigma_left)
+    sample_two_sigma_right = "%0.3f"%(Mean+2*SSEM); sample_two_sigma_right = str(sample_two_sigma_right)
+    plt.text(Mean-2*SSEM,0,"|",fontsize=18, ha='center', va='bottom', rotation=0, color='green')
+    plt.text(Mean-2*SSEM,0,"$\overline{x}  - 2\sigma_x$", fontsize=18, ha='right', va='bottom', rotation=0, color='green')
+    plt.text(Mean+2*SSEM,0,"|",fontsize=18, ha='center', va='bottom', rotation=0, color='green')
+    plt.text(Mean+2*SSEM,0,"$\overline{x}  + 2\sigma_x$", fontsize=18, ha='left', va='bottom', rotation=0, color='green')
+    plt.text(Mean-2*SSEM,0,sample_two_sigma_left,fontsize=7.5, ha='right', va='top', rotation=0, color='green')
+    plt.text(Mean+2*SSEM,0,sample_two_sigma_right,fontsize=7.5, ha='left', va='top', rotation=0, color='green')
 
     plt.ylabel("Entry Number")
     if(Xaxis_Name == ''):
@@ -140,7 +145,7 @@ def Fit_Gaus_histo(filename, Xaxis_Name='', norm=0, SIGMA=2):
     plt.show()
     plt.close('all')
     f.close()
-    return_list = [Mean-SIGMA*Std,Mean+SIGMA*Std]
+    return_list = [Mean-SIGMA*SSEM,Mean+SIGMA*SSEM]
 
     return return_list
 
@@ -153,8 +158,8 @@ def main():
 #    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/soomin/LA_s/EXE/beer_0319Mon_LA_s_tree_beer_0319Mon_LA_s_V1_hist.txt"
 #    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/soomin/LA_s/POS_NEG_PROP/execute_root/tea_0319Mon_LA_s_P_n_N_tree_cut_tea_0319Mon_LA_s_P_n_N_f_Pos_Neg_propotion_hist.txt"
 
-    Fit_Gaus_histo(inputfile, ".X-axis.", SIGMA=2)
-#    Fit_Gaus_histo(inputfile, ".X-axis.",  SIGMA=2)
+    Two_sigma_range = Fit_Gaus_histo(inputfile, ".X-axis.", SIGMA=2)
+#    Two_sigma_range =` Fit_Gaus_histo(inputfile, ".X-axis.",  SIGMA=2)
 
 if __name__ == "__main__":
     main()

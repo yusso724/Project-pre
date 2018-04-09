@@ -137,7 +137,7 @@ def c1_mean(filename):
 
 
 
-def c1_variance(filename):
+def c1_variance(filename):    # actually, this is variance of a sample from population.
     import os
     infile = open(filename,"r")
     BinN = []
@@ -178,5 +178,17 @@ def c1_standard_deviation(filename):
 
 #    print(" Standard Deviation Value =",STD,"!!!!")
     return STD
+
+
+def c1_sample_standard_error_of_mean(filename):
+    import os
+    import math
+    STD = c1_standard_deviation(filename)
+    TOT = c1_total_ENTRY(filename)
+    SSEM = STD/(math.sqrt(TOT))
+
+    return SSEM
+
+
 
 
