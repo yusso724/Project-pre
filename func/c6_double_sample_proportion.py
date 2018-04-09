@@ -61,7 +61,7 @@ def double_Sample_proportion(proportion1=0.1,event_num1=100,proportion2=0.5,even
 
     plt.grid(True)
     if(Title == ''):
-        TITLE = "Single Sample Proportion distribution"
+        TITLE = "Two Sample |P1-P2| distribution"
     else:
         TITLE = Title
     plt.title(TITLE)
@@ -72,7 +72,7 @@ def double_Sample_proportion(proportion1=0.1,event_num1=100,proportion2=0.5,even
         XLABEL = Xaxis_Name
     plt.xlabel(XLABEL)
     plt.ylabel("Probability")
-    SaveName = TITLE; SaveName = SaveName.replace(" ","_"); SaveName = SaveName+"_two.pdf"
+    SaveName = TITLE; SaveName = SaveName.replace(" ","_"); SaveName = SaveName+".pdf"
 #    print(SaveName)
     plt.savefig(SaveName)
 #    plt.show()
