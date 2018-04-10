@@ -10,7 +10,7 @@ from sympy import exp,sqrt,pi,Integral
 sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/func/")
 from c1_basic_statistic import *
 
-
+#http://www.statsmodels.org/dev/generated/statsmodels.stats.proportion.proportions_ztest.html
 def bothSide_hypothesis(proportion1=0.1,event_num1=100,proportion2=0.5,event_num2=100):
     # this is Z test for proportion test
     # returns [self calculated Zc, Zc from statsmodels, p-value from statsmodels corresponding Zc]

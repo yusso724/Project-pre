@@ -7,11 +7,12 @@ from sympy import exp,sqrt,pi,Integral
 sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/func/")
 from c1_basic_statistic import *
 
-
-def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', norm=0, SIGMA=2, Show=False, Show_sample=False):
-    # returns [Mean-n*sigma,Mean+n*sigma]
+# recommand to use on sample size bigger than 30, i.e. n>=30
+def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, norm=0, Show=False, Show_sample=False):
+    # returns [Mean-n*sigma,Mean+n*sigma,Total_Entry,Expected number to reach given sigma confidence interval, SIGMA, MEAN,sample_mean_error(std) ,exp_Mean_error]
     # Xaxis_Name :: put what you want for Axis name
-    # norm :: '0' for normalized histogram showing
+    # norm :: 0 for normalized histogram showing. (suggest do not change this value)
+    # exp_Mean_error :: expected Mean error in given SIGMA level confidence interval
     # SIGMA :: pick your sigma range to be returned
     # Show :: if True, the maximum y value of canvas would be sample_mean_distribution's Maximum value
     # Show_sample :: if True, it will print the sample distribution as well
@@ -166,20 +167,24 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', norm=0, SIGMA=2, Show=False, 
     SaveName = filename_No_Txt +"Gaussian_normalized"+ ".pdf"
     plt.grid(True)
     plt.savefig(SaveName)
-    plt.show()
+#    plt.show()
     plt.close('all')
     f.close()
-    return_list = [Mean-SIGMA*SSEM,Mean+SIGMA*SSEM]
+    Ex_Num = (SIGMA*Std/exp_Mean_error)*(SIGMA*Std/exp_Mean_error)
+    return_list = [float("%0.6f"%(Mean-SIGMA*SSEM)),float("%0.6f"%(Mean+SIGMA*SSEM)),Total_Entry,float("%0.3f"%(Ex_Num)),str(SIGMA)+" SIGMA",float("%0.6f"%(Mean)),float("%0.6f"%(SSEM)), exp_Mean_error]
 
+    print("Careful!!!!")
+    print("Event number better larger than 30 !!!!!")
+    print("Current Event number is : ",Total_Entry)
     return return_list
 
 
 def main():
-    inputfile = "gaus100.txt"
+    inputfile = "gaus60.txt"
 #    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/soomin/LA_s/POS_NEG_PROP/execute_root/tea_0319Mon_LA_s_P_n_N_tree_cut_tea_0319Mon_LA_s_P_n_N_f_Pos_Neg_propotion_hist.txt"
 
 #    Two_sigma_range = Fit_Sample_Gaus_histo(inputfile, ".X-axis.", SIGMA=2, Show_sample=True, Show = True)
-    Two_sigma_range = Fit_Sample_Gaus_histo(inputfile,SIGMA=2)
+    Two_sigma_range = Fit_Sample_Gaus_histo(inputfile,SIGMA=1.96, exp_Mean_error=0.8)
     print(Two_sigma_range)
 
 if __name__ == "__main__":
