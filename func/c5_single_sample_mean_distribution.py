@@ -123,7 +123,23 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, n
 #    plt.plot(t,s2)
     plt.plot(t,gaussian)
     plt.plot(tt,sample_gaussian, color='r')
+    plt.grid(True)
+    plt.ylabel("Probability of Sample Mean", color='r')
+    plt.yticks(color ='red')
+    if(Xaxis_Name == ''):
+        XLABEL = filename_No_Txt.replace("_hist",'')
+    else:
+        XLABEL = Xaxis_Name
+    plt.xlabel(XLABEL)
+
+
+#    YLIST = [0,float(int(Mode[2]/5)), float(int(Mode[2]/5*2)), float(int(Mode[2]/5*3)), float(int(Mode[2]/5*4)),  float(int(Mode[2]))]
+#    print(YLIST)    
     if(Show_sample==True):
+#        plt.twinx()
+#        print(plt.yticks())
+#        plt.yticks( color="green")
+#        plt.yticks(np.arange(len(plt.yticks())),YLIST)
         barlist = plt.bar(X_AXIS,Y_VALUE,X_WIDTH[0],fill=False)
         for i in range(len(barlist)):
             barlist[i].set_color('g')
@@ -176,15 +192,10 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, n
     plt.text(Mean-2*SSEM,MAX/6,sample_two_sigma_left,fontsize=7.5, ha='right', va='bottom', rotation=0, color='r')
     plt.text(Mean+2*SSEM,MAX/6,sample_two_sigma_right,fontsize=7.5, ha='left', va='bottom', rotation=0, color='r')
 
-    plt.ylabel("Probability of Sample Mean")
-    if(Xaxis_Name == ''):
-        XLABEL = filename_No_Txt.replace("_hist",'')
-    else:
-        XLABEL = Xaxis_Name
     plt.xlabel(XLABEL)
     plt.title(filename_No_Txt)
     SaveName = filename_No_Txt +"_Gaussian_normalized"+ ".pdf"
-#    plt.grid(True)
+    plt.grid(True)
     plt.savefig(SaveName)
 #    plt.show()
     plt.close('all')
@@ -199,11 +210,10 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, n
 
 
 def main():
-    inputfile = "gaus100.txt"
-#    inputfile = "ZRXBTC_1T_f_quote_volume_hist.txt"
+#    inputfile = "gaus100.txt"
+    inputfile = "ZRXBTC_1T_f_quote_volume_hist.txt"
 #    inputfile = "beer_0319Mon_LA_s_tree_beer_0319Mon_LA_s_V2_hist.txt"
 #    inputfile = "tea_0319Mon_LA_s_tree_tea_0319Mon_LA_s_V2_hist.txt"
-#    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/soomin/LA_s/POS_NEG_PROP/execute_root/tea_0319Mon_LA_s_P_n_N_tree_cut_tea_0319Mon_LA_s_P_n_N_f_Pos_Neg_propotion_hist.txt"
 
     Two_sigma_range = Fit_Sample_Gaus_histo(inputfile, ".X-axis.", SIGMA=2, Show_sample=True, Show = True)
 #    Two_sigma_range = Fit_Sample_Gaus_histo(inputfile,SIGMA=1.96, exp_Mean_error=0.05)
