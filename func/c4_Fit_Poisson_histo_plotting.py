@@ -101,7 +101,8 @@ def Fit_Poisson_histo(filename, Xaxis_Name='', norm=0):
 
 
 def main():
-    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/soomin/LA_s/EXE/beer_0319Mon_LA_s_tree_beer_0319Mon_LA_s_V1_hist.txt"
+#    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/soomin/LA_s/EXE/beer_0319Mon_LA_s_tree_beer_0319Mon_LA_s_V1_hist.txt"
+    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/soomin/LA_s/EXE/beer_0319Mon_LA_s_tree_beer_0319Mon_LA_s_V2_hist.txt"
 
 #    Fit_Poisson_histo(inputfile, ".X-axis.", norm=0)
     Fit_Poisson_histo(inputfile, ".X-axis.", norm=1)

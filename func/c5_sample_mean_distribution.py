@@ -43,8 +43,9 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', norm=0, SIGMA=2, Show=False, 
     str_SSEM = str(shorten_SSEM)
 
     FROM = Range[0]; END = Range[1];  #print(BIN_NUM, FROM, END)
-    Brange = (END-FROM)/BIN_NUM; 
-    t = np.arange(FROM, END, Brange) 
+    Brange = (END-FROM)/BIN_NUM;
+    RANGE = END-FROM
+    t = np.arange(FROM-RANGE, END+RANGE, Brange) 
     gaussian = (1/(Std * np.sqrt(2 * np.pi))*np.exp(-(t-Mean)**2/(2 * Std**2)))
     sample_gaussian = (1/(SSEM * np.sqrt(2 * np.pi))*np.exp(-(t-Mean)**2/(2 * SSEM**2)))
 
@@ -123,7 +124,10 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', norm=0, SIGMA=2, Show=False, 
     locs, labels = plt.xticks()
     TEXT = "Total Entry : " + str(Total_Entry) + "\n" + "POP Mean Est: " + str_Mean + "\n" + "POP Std Est: " + str_Std \
            + "\n" + "Sample Mean STD: " + str_SSEM
-    plt.text(Range[1]-(Range[1]-Range[0])*0.05, Mode[2]*21/20/WEIGHT, TEXT, fontsize=16, ha='right', va='top', rotation=0)
+    if(Show == False): 
+        plt.text(Range[1]-(Range[1]-Range[0])*0.05, Mode[2]*21/20/WEIGHT, TEXT, fontsize=16, ha='right', va='top', rotation=0)
+    else:
+        plt.text(Range[1]-(Range[1]-Range[0])*0.05, MAX_S*20/21, TEXT, fontsize=16, ha='right', va='top', rotation=0)
 
     one_sigma_left = "%0.3f"%(Mean-Std); one_sigma_left = str(one_sigma_left)
     one_sigma_right = "%0.3f"%(Mean+Std); one_sigma_right = str(one_sigma_right)
@@ -171,10 +175,10 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', norm=0, SIGMA=2, Show=False, 
 
 
 def main():
-    inputfile = "hist1_100.txt"
+    inputfile = "gaus100.txt"
 #    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/soomin/LA_s/POS_NEG_PROP/execute_root/tea_0319Mon_LA_s_P_n_N_tree_cut_tea_0319Mon_LA_s_P_n_N_f_Pos_Neg_propotion_hist.txt"
 
-#    Two_sigma_range = Fit_Sample_Gaus_histo(inputfile, ".X-axis.", SIGMA=2, Show=True, Show_sample=True)
+#    Two_sigma_range = Fit_Sample_Gaus_histo(inputfile, ".X-axis.", SIGMA=2, Show_sample=True, Show = True)
     Two_sigma_range = Fit_Sample_Gaus_histo(inputfile,SIGMA=2)
     print(Two_sigma_range)
 

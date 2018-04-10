@@ -73,7 +73,7 @@ def Basic_histo(filename, Xaxis_Name='', norm=0):
     SaveName = filename_No_Txt + ".pdf"
     plt.grid(True)
     plt.savefig(SaveName)
-    plt.show()
+#    plt.show()
     plt.close('all')
     f.close()
 
