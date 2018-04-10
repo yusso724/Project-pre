@@ -9,7 +9,8 @@ from c1_basic_statistic import *
 
 # recommand to use on sample size bigger than 30, i.e. n>=30
 def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, norm=0, Show=False, Show_sample=False):
-    # returns [Mean-n*sigma,Mean+n*sigma,Total_Entry,Expected number to reach given sigma confidence interval, SIGMA, MEAN,sample_mean_error(std) ,exp_Mean_error]
+    # returns [Mean-n*sigma,Mean+n*sigma,Total_Entry,Expected number to reach given sigma confidence interval, SIGMA, MEAN,sample_mean_error(std) ,exp_Mean_error]  (exp_MEAN_error :: [Mean-exp_MEAN_error ,Mean+exp_MEAN_error] within given sigma confidence interval)
+
     # Xaxis_Name :: put what you want for Axis name
     # norm :: 0 for normalized histogram showing. (suggest do not change this value)
     # exp_Mean_error :: expected Mean error in given SIGMA level confidence interval
@@ -164,7 +165,7 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, n
         XLABEL = Xaxis_Name
     plt.xlabel(XLABEL)
     plt.title(filename_No_Txt)
-    SaveName = filename_No_Txt +"Gaussian_normalized"+ ".pdf"
+    SaveName = filename_No_Txt +"_Gaussian_normalized"+ ".pdf"
     plt.grid(True)
     plt.savefig(SaveName)
 #    plt.show()
@@ -180,11 +181,11 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, n
 
 
 def main():
-    inputfile = "gaus60.txt"
+    inputfile = "gaus100.txt"
 #    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/soomin/LA_s/POS_NEG_PROP/execute_root/tea_0319Mon_LA_s_P_n_N_tree_cut_tea_0319Mon_LA_s_P_n_N_f_Pos_Neg_propotion_hist.txt"
 
 #    Two_sigma_range = Fit_Sample_Gaus_histo(inputfile, ".X-axis.", SIGMA=2, Show_sample=True, Show = True)
-    Two_sigma_range = Fit_Sample_Gaus_histo(inputfile,SIGMA=1.96, exp_Mean_error=0.8)
+    Two_sigma_range = Fit_Sample_Gaus_histo(inputfile,SIGMA=1.96, exp_Mean_error=0.1)
     print(Two_sigma_range)
 
 if __name__ == "__main__":
