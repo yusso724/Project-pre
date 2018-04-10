@@ -50,26 +50,13 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, n
     Brange_s = (END-FROM)/BIN_NUM*(SSEM/Std)
     RANGE = END-FROM
 
-    t = np.arange(FROM-RANGE, END+RANGE, Brange) 
+    t = np.arange(FROM-RANGE, END+RANGE, Brange_s) 
     tt = np.arange(FROM-RANGE, END+RANGE, Brange_s)   
     gaussian = (1/(Std * np.sqrt(2 * np.pi))*np.exp(-(t-Mean)**2/(2 * Std**2)))
     sample_gaussian = (1/(SSEM * np.sqrt(2 * np.pi))*np.exp(-(tt-Mean)**2/(2 * SSEM**2)))
 
-    sample_inte = 0
-    for i in range(len(sample_gaussian)):
-        sample_inte = sample_inte + sample_gaussian[i]
-#        print(sample_gaussian[i])
-#    print(sample_inte)
-    for i in range(len(sample_gaussian)):
-        sample_gaussian[i] = sample_gaussian[i]/sample_inte
-#        print(sample_gaussian[i])
-
-    TJG = 0
-    for i in range(len(gaussian)):
-        TJG = TJG + gaussian[i]
-    TJG = Total_Entry / TJG 
-    for i in range(len(gaussian)):
-        gaussian[i] = TJG * gaussian[i]
+    LENGTH = (Mean+5*SSEM) - (Mean-5*SSEM)
+    HIGHT = 2/LENGTH
 
     str_Mean = str_Mean[:len(str_TE)+2]; #print(str_Mean)    
     str_Std = str_Std[:len(str_TE)+2]; #print(str_Std)
@@ -109,6 +96,13 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, n
     for i in range(len(sample_gaussian)):
         if(MAX_S<sample_gaussian[i]):
             MAX_S=sample_gaussian[i]
+
+    SCALE_SAM = HIGHT/MAX_S
+    MAX_S = 0
+    for i in range(len(sample_gaussian)):
+        sample_gaussian[i] = sample_gaussian[i] * SCALE_SAM
+        if(MAX_S<sample_gaussian[i]):
+            MAX_S=sample_gaussian[i]
  
     MAX_Y=0
     for i in range(len(Y_VALUE)):
@@ -119,14 +113,20 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, n
     for i in range(len(Y_VALUE)):
         Y_VALUE[i] = SCALE_Y * Y_VALUE[i]
 
+    SCALE_ALL = MAX_S/MAX
+    for i in range(len(gaussian)):
+        gaussian[i] = SCALE_ALL * gaussian[i]
+
+    
+
     plt.figure(1)
 #    plt.plot(t,s2)
     plt.plot(t,gaussian)
-    plt.plot(tt,sample_gaussian)
+    plt.plot(tt,sample_gaussian, color='r')
     if(Show_sample==True):
         barlist = plt.bar(X_AXIS,Y_VALUE,X_WIDTH[0],fill=False)
         for i in range(len(barlist)):
-            barlist[i].set_color('r')
+            barlist[i].set_color('g')
     plt.axis([X_AXIS[0],X_AXIS[BinN-1],0,MAX_S*21/20])
     MAX = MAX_S
 
@@ -169,14 +169,14 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, n
 
     sample_two_sigma_left = "%0.3f"%(Mean-2*SSEM); sample_two_sigma_left = str(sample_two_sigma_left)
     sample_two_sigma_right = "%0.3f"%(Mean+2*SSEM); sample_two_sigma_right = str(sample_two_sigma_right)
-    plt.text(Mean-2*SSEM,0,"|",fontsize=13, ha='center', va='bottom', rotation=0, color='green')
-    plt.text(Mean-2*SSEM,MAX/4,"$\overline{x}  - 2\sigma_x$", fontsize=18, ha='right', va='top', rotation=0, color='green')
-    plt.text(Mean+2*SSEM,0,"|",fontsize=13, ha='center', va='bottom', rotation=0, color='green')
-    plt.text(Mean+2*SSEM,MAX/4,"$\overline{x}  + 2\sigma_x$", fontsize=18, ha='left', va='top', rotation=0, color='green')
-    plt.text(Mean-2*SSEM,MAX/6,sample_two_sigma_left,fontsize=7.5, ha='right', va='bottom', rotation=0, color='green')
-    plt.text(Mean+2*SSEM,MAX/6,sample_two_sigma_right,fontsize=7.5, ha='left', va='bottom', rotation=0, color='green')
+    plt.text(Mean-2*SSEM,0,"|",fontsize=13, ha='center', va='bottom', rotation=0, color='r')
+    plt.text(Mean-2*SSEM,MAX/4,"$\overline{x}  - 2\sigma_x$", fontsize=18, ha='right', va='top', rotation=0, color='r')
+    plt.text(Mean+2*SSEM,0,"|",fontsize=13, ha='center', va='bottom', rotation=0, color='r')
+    plt.text(Mean+2*SSEM,MAX/4,"$\overline{x}  + 2\sigma_x$", fontsize=18, ha='left', va='top', rotation=0, color='r')
+    plt.text(Mean-2*SSEM,MAX/6,sample_two_sigma_left,fontsize=7.5, ha='right', va='bottom', rotation=0, color='r')
+    plt.text(Mean+2*SSEM,MAX/6,sample_two_sigma_right,fontsize=7.5, ha='left', va='bottom', rotation=0, color='r')
 
-    plt.ylabel("Entry Number")
+    plt.ylabel("Probability of Sample Mean")
     if(Xaxis_Name == ''):
         XLABEL = filename_No_Txt.replace("_hist",'')
     else:
@@ -199,9 +199,9 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, n
 
 
 def main():
-#    inputfile = "gaus100.txt"
+    inputfile = "gaus100.txt"
 #    inputfile = "ZRXBTC_1T_f_quote_volume_hist.txt"
-    inputfile = "beer_0319Mon_LA_s_tree_beer_0319Mon_LA_s_V2_hist.txt"
+#    inputfile = "beer_0319Mon_LA_s_tree_beer_0319Mon_LA_s_V2_hist.txt"
 #    inputfile = "tea_0319Mon_LA_s_tree_tea_0319Mon_LA_s_V2_hist.txt"
 #    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/soomin/LA_s/POS_NEG_PROP/execute_root/tea_0319Mon_LA_s_P_n_N_tree_cut_tea_0319Mon_LA_s_P_n_N_f_Pos_Neg_propotion_hist.txt"
 
