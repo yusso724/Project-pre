@@ -8,6 +8,7 @@ sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/
 from c1_basic_statistic import *
 
 # recommand to use on sample size bigger than 30, i.e. n>=30
+# Make sure the distribution follows gaussian distribution
 def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, norm=0, Show=False, Show_sample=False):
     # returns [Mean-n*sigma,Mean+n*sigma,Total_Entry,Expected number to reach given sigma confidence interval, SIGMA, MEAN,sample_mean_error(std) ,exp_Mean_error]  (exp_MEAN_error :: [Mean-exp_MEAN_error ,Mean+exp_MEAN_error] within given sigma confidence interval)
 
@@ -46,10 +47,13 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, n
 
     FROM = Range[0]; END = Range[1];  #print(BIN_NUM, FROM, END)
     Brange = (END-FROM)/BIN_NUM;
+    Brange_s = (END-FROM)/BIN_NUM*(SSEM/Std)
     RANGE = END-FROM
+
     t = np.arange(FROM-RANGE, END+RANGE, Brange) 
+    tt = np.arange(FROM-RANGE, END+RANGE, Brange_s)   
     gaussian = (1/(Std * np.sqrt(2 * np.pi))*np.exp(-(t-Mean)**2/(2 * Std**2)))
-    sample_gaussian = (1/(SSEM * np.sqrt(2 * np.pi))*np.exp(-(t-Mean)**2/(2 * SSEM**2)))
+    sample_gaussian = (1/(SSEM * np.sqrt(2 * np.pi))*np.exp(-(tt-Mean)**2/(2 * SSEM**2)))
 
     sample_inte = 0
     for i in range(len(sample_gaussian)):
@@ -92,15 +96,17 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, n
 #            print(sample_gaussian[i])
 #            print(gaussian[i])
 
-    if(norm==1):
-        for i in range(len(sample_gaussian)):
-            SCALE = sample_gaussian[i] / gaussian[i]
-            sample_gaussian[i] = sample_gaussian[i] / SCALE *9/10
+#    if(norm==1):
+#        for i in range(len(sample_gaussian)):
+#            SCALE = sample_gaussian[i] / gaussian[i]
+#            sample_gaussian[i] = sample_gaussian[i] / SCALE *9/10
             
     MAX = 0; MAX_S = 0
     for i in range(len(gaussian)):
         if(MAX<gaussian[i]):
             MAX=gaussian[i]
+
+    for i in range(len(sample_gaussian)):
         if(MAX_S<sample_gaussian[i]):
             MAX_S=sample_gaussian[i]
  
@@ -112,24 +118,32 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, n
     plt.figure(1)
 #    plt.plot(t,s2)
     plt.plot(t,gaussian)
-    plt.plot(t,sample_gaussian)
+    plt.plot(tt,sample_gaussian)
     if(Show_sample==True):
         barlist = plt.bar(X_AXIS,Y_VALUE,X_WIDTH[0],fill=False)
         for i in range(len(barlist)):
             barlist[i].set_color('r')
+    plt.axis([X_AXIS[0],X_AXIS[BinN-1],0,MAX_S*21/20])
+    MAX = MAX_S
+
+    '''
     if(Show == False):
         plt.axis([X_AXIS[0],X_AXIS[BinN-1],0,Mode[2]*10/9/WEIGHT])
     else:
         plt.axis([X_AXIS[0],X_AXIS[BinN-1],0,MAX_S])
         MAX = MAX_S
+    '''
 
     locs, labels = plt.xticks()
     TEXT = "Total Entry : " + str(Total_Entry) + "\n" + "POP Mean Est: " + str_Mean + "\n" + "POP Std Est: " + str_Std \
            + "\n" + "Sample Mean STD: " + str_SSEM
+    ''''
     if(Show == False): 
         plt.text(Range[1]-(Range[1]-Range[0])*0.05, Mode[2]*21/20/WEIGHT, TEXT, fontsize=16, ha='right', va='top', rotation=0)
     else:
         plt.text(Range[1]-(Range[1]-Range[0])*0.05, MAX_S*20/21, TEXT, fontsize=16, ha='right', va='top', rotation=0)
+    '''
+    plt.text(Range[1]-(Range[1]-Range[0])*0.05, MAX_S*20/21, TEXT, fontsize=16, ha='right', va='top', rotation=0)
 
     one_sigma_left = "%0.3f"%(Mean-Std); one_sigma_left = str(one_sigma_left)
     one_sigma_right = "%0.3f"%(Mean+Std); one_sigma_right = str(one_sigma_right)
@@ -166,7 +180,7 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, n
     plt.xlabel(XLABEL)
     plt.title(filename_No_Txt)
     SaveName = filename_No_Txt +"_Gaussian_normalized"+ ".pdf"
-    plt.grid(True)
+#    plt.grid(True)
     plt.savefig(SaveName)
 #    plt.show()
     plt.close('all')
@@ -182,10 +196,13 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, n
 
 def main():
     inputfile = "gaus100.txt"
+#    inputfile = "ZRXBTC_1T_f_quote_volume_hist.txt"
+#    inputfile = "beer_0319Mon_LA_s_tree_beer_0319Mon_LA_s_V2_hist.txt"
+#    inputfile = "tea_0319Mon_LA_s_tree_tea_0319Mon_LA_s_V2_hist.txt"
 #    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/soomin/LA_s/POS_NEG_PROP/execute_root/tea_0319Mon_LA_s_P_n_N_tree_cut_tea_0319Mon_LA_s_P_n_N_f_Pos_Neg_propotion_hist.txt"
 
 #    Two_sigma_range = Fit_Sample_Gaus_histo(inputfile, ".X-axis.", SIGMA=2, Show_sample=True, Show = True)
-    Two_sigma_range = Fit_Sample_Gaus_histo(inputfile,SIGMA=1.96, exp_Mean_error=0.1)
+    Two_sigma_range = Fit_Sample_Gaus_histo(inputfile,SIGMA=1.96, exp_Mean_error=0.05)
     print(Two_sigma_range)
 
 if __name__ == "__main__":
