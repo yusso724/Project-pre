@@ -10,7 +10,7 @@ from c1_basic_statistic import *
 
 
 def double_Sample_proportion(proportion1=0.1,event_num1=100,proportion2=0.5,event_num2=100 ,Title='', Xaxis_Name='', SIGMA=2):
-
+    # returns [sigma, mean-2sigma, mean+2sigma]
 
     Mean = math.fabs(proportion1-proportion2)
     Var = proportion1*(1-proportion1)/event_num1 + proportion2*(1-proportion2)/event_num2
