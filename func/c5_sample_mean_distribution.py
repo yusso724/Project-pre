@@ -8,7 +8,13 @@ sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/
 from c1_basic_statistic import *
 
 
-def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', norm=0, SIGMA=2):
+def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', norm=0, SIGMA=2, Show=False, Show_sample=False):
+    # returns [Mean-n*sigma,Mean+n*sigma]
+    # Xaxis_Name :: put what you want for Axis name
+    # norm :: '0' for normalized histogram showing
+    # SIGMA :: pick your sigma range to be returned
+    # Show :: if True, the maximum y value of canvas would be sample_mean_distribution's Maximum value
+    # Show_sample :: if True, it will print the sample distribution as well
 
     if(filename[0]=="/"):
         filename = filename
@@ -87,6 +93,14 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', norm=0, SIGMA=2):
         for i in range(len(sample_gaussian)):
             SCALE = sample_gaussian[i] / gaussian[i]
             sample_gaussian[i] = sample_gaussian[i] / SCALE *9/10
+            
+    MAX = 0; MAX_S = 0
+    for i in range(len(gaussian)):
+        if(MAX<gaussian[i]):
+            MAX=gaussian[i]
+        if(MAX_S<sample_gaussian[i]):
+            MAX_S=sample_gaussian[i]
+ 
 
     for i in range(len(Y_VALUE)):
         Y_VALUE[i] = float(Y_VALUE[i])/WEIGHT
@@ -96,10 +110,16 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', norm=0, SIGMA=2):
 #    plt.plot(t,s2)
     plt.plot(t,gaussian)
     plt.plot(t,sample_gaussian)
-#    barlist = plt.bar(X_AXIS,Y_VALUE,X_WIDTH[0],fill=False)
-#    for i in range(len(barlist)):
-#        barlist[i].set_color('r')
-    plt.axis([X_AXIS[0],X_AXIS[BinN-1],0,Mode[2]*10/9/WEIGHT])
+    if(Show_sample==True):
+        barlist = plt.bar(X_AXIS,Y_VALUE,X_WIDTH[0],fill=False)
+        for i in range(len(barlist)):
+            barlist[i].set_color('r')
+    if(Show == False):
+        plt.axis([X_AXIS[0],X_AXIS[BinN-1],0,Mode[2]*10/9/WEIGHT])
+    else:
+        plt.axis([X_AXIS[0],X_AXIS[BinN-1],0,MAX_S])
+        MAX = MAX_S
+
     locs, labels = plt.xticks()
     TEXT = "Total Entry : " + str(Total_Entry) + "\n" + "POP Mean Est: " + str_Mean + "\n" + "POP Std Est: " + str_Std \
            + "\n" + "Sample Mean STD: " + str_SSEM
@@ -125,10 +145,10 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', norm=0, SIGMA=2):
 
     sample_two_sigma_left = "%0.3f"%(Mean-2*SSEM); sample_two_sigma_left = str(sample_two_sigma_left)
     sample_two_sigma_right = "%0.3f"%(Mean+2*SSEM); sample_two_sigma_right = str(sample_two_sigma_right)
-    plt.text(Mean-2*SSEM,0,"|",fontsize=18, ha='center', va='bottom', rotation=0, color='green')
-    plt.text(Mean-2*SSEM,0,"$\overline{x}  - 2\sigma_x$", fontsize=18, ha='right', va='bottom', rotation=0, color='green')
-    plt.text(Mean+2*SSEM,0,"|",fontsize=18, ha='center', va='bottom', rotation=0, color='green')
-    plt.text(Mean+2*SSEM,0,"$\overline{x}  + 2\sigma_x$", fontsize=18, ha='left', va='bottom', rotation=0, color='green')
+    plt.text(Mean-2*SSEM,0,"|",fontsize=13, ha='center', va='bottom', rotation=0, color='green')
+    plt.text(Mean-2*SSEM,MAX/4,"$\overline{x}  - 2\sigma_x$", fontsize=18, ha='right', va='top', rotation=0, color='green')
+    plt.text(Mean+2*SSEM,0,"|",fontsize=13, ha='center', va='bottom', rotation=0, color='green')
+    plt.text(Mean+2*SSEM,MAX/4,"$\overline{x}  + 2\sigma_x$", fontsize=18, ha='left', va='top', rotation=0, color='green')
     plt.text(Mean-2*SSEM,0,sample_two_sigma_left,fontsize=7.5, ha='right', va='top', rotation=0, color='green')
     plt.text(Mean+2*SSEM,0,sample_two_sigma_right,fontsize=7.5, ha='left', va='top', rotation=0, color='green')
 
@@ -151,15 +171,12 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', norm=0, SIGMA=2):
 
 
 def main():
-    inputfile = "hist1_hist.txt"
-#    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/TESTs/project_180401/project1_10K.txt"
-#    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/TESTs/project_180401/project3_1M.txt"
-#    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/soomin/LA_s/EXE/beer_0319Mon_LA_s_tree_beer_0319Mon_LA_s_POSP_hist.txt"
-#    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/soomin/LA_s/EXE/beer_0319Mon_LA_s_tree_beer_0319Mon_LA_s_V1_hist.txt"
+    inputfile = "hist1_100.txt"
 #    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/soomin/LA_s/POS_NEG_PROP/execute_root/tea_0319Mon_LA_s_P_n_N_tree_cut_tea_0319Mon_LA_s_P_n_N_f_Pos_Neg_propotion_hist.txt"
 
-    Two_sigma_range = Fit_Sample_Gaus_histo(inputfile, ".X-axis.", SIGMA=2)
-#    Two_sigma_range =` Fit_Gaus_histo(inputfile, ".X-axis.",  SIGMA=2)
+#    Two_sigma_range = Fit_Sample_Gaus_histo(inputfile, ".X-axis.", SIGMA=2, Show=True, Show_sample=True)
+    Two_sigma_range = Fit_Sample_Gaus_histo(inputfile,SIGMA=2)
+    print(Two_sigma_range)
 
 if __name__ == "__main__":
     main()
