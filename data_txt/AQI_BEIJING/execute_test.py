@@ -13,7 +13,7 @@ sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/R
 #Infile = "data/ZRXBTC_5T.txt"
 #Infile = "data/sh600000.txt"
 #Infile = "data/tea_newyork/TEA_ALL.txt"
-Infile = "AQI_BEIJING.txt"
+Infile = "Aqi_Beijing.txt"
 from Raw_text_to_Tree_root import Raw_text_to_Tree_root
 To_Tree = Raw_text_to_Tree_root(Infile,".")
 
