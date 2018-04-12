@@ -9,8 +9,9 @@ from c1_basic_statistic import *
 
 #Single hypothesis examination of Mean value. To see whether given "test_MEAN" significantly different with sample "MEAN"
 # "pvalue < alpha", say alpha = 0.05, reject H0, accept H1 within alpha level. 
+# Assume under n>=30, the t distribution could be smear to gaussian, so we did Ztest instead of t-test
 def bothSide_hypothesis(filename, test_MEAN=0):
-    #returns : (test_statistic, pvalue)
+    #returns : [test_statistic, pvalue, sample_Mean, test_MEAN]
     
     #filename :: input filename
     #test_MEAN :: The mean value to be tested, whether it is significantly different with sample mean. 
@@ -32,6 +33,8 @@ def bothSide_hypothesis(filename, test_MEAN=0):
     filename_No_Txt = FILENAME.replace(".txt","")
     infile = filename
 
+    Mean = c1_mean(infile)
+
     DATA_LIST = []
     f = open(infile,'r')
     for line in f:
@@ -47,7 +50,9 @@ def bothSide_hypothesis(filename, test_MEAN=0):
     f.close()
 
     Ztest = weightstats.ztest(DATA_LIST, value=test_MEAN ,alternative='two-sided') 
-    return Ztest
+#    Ttest = weightstats.ttest_ind(DATA_LIST, value=test_MEAN, alternative='two-sided')
+    List = [float("%0.6f"%(Ztest[0])), float("%0.6f"%(Ztest[1])), float("%0.6f"%(Mean)), test_MEAN]
+    return List
 
 
 def main():
