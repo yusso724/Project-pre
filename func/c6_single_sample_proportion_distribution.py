@@ -45,10 +45,10 @@ def Sample_proportion(proportion=0.1, event_num = 100,Title='', Xaxis_Name='', S
     TEXT = "Sample Prop Mean : " + str_proportion + "\n" + "Sample Prop Std : " + str_Std
     plt.text((proportion+5*Std)*20/21, MAX*6/5, TEXT, fontsize=16, ha='right', va='top', rotation=0)
 
-    one_sigma_left = "%0.3f"%(Mean-Std); one_sigma_left = str(one_sigma_left)
-    one_sigma_right = "%0.3f"%(Mean+Std); one_sigma_right = str(one_sigma_right)
-    two_sigma_left = "%0.3f"%(Mean-2*Std); two_sigma_left = str(two_sigma_left)
-    two_sigma_right = "%0.3f"%(Mean+2*Std); two_sigma_right = str(two_sigma_right)
+    one_sigma_left = "%0.5f"%(Mean-Std); one_sigma_left = str(one_sigma_left)
+    one_sigma_right = "%0.5f"%(Mean+Std); one_sigma_right = str(one_sigma_right)
+    two_sigma_left = "%0.5f"%(Mean-2*Std); two_sigma_left = str(two_sigma_left)
+    two_sigma_right = "%0.5f"%(Mean+2*Std); two_sigma_right = str(two_sigma_right)
 
     plt.text(Mean-2*Std,0,"|",fontsize=24, ha='right', va='bottom', rotation=0, color='g')
     plt.text(Mean-2*Std,0,two_sigma_left,fontsize=7.5, ha='center', va='top', rotation=0, color='g')
