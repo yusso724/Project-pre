@@ -210,9 +210,9 @@ def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, n
 
 
 def main():
-#    inputfile = "gaus100.txt"
+    inputfile = "gaus100.txt"
 #    inputfile = "ZRXBTC_1T_f_quote_volume_hist.txt"
-    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/AQI_BEIJING/AQI_BEIJING_tree_cut_AQI_BEIJING_f_AQI_hist.txt"
+#    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/AQI_BEIJING/AQI_BEIJING_tree_cut_AQI_BEIJING_f_AQI_hist.txt"
 #    inputfile = "beer_0319Mon_LA_s_tree_beer_0319Mon_LA_s_V2_hist.txt"
 #    inputfile = "tea_0319Mon_LA_s_tree_tea_0319Mon_LA_s_V2_hist.txt"
 

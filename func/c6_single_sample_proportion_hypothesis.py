@@ -25,8 +25,8 @@ def bothSide_hypothesis(proportion=0.1,event_num=100, test_proportion=0.1):
 #    Success = event_num*Prop; Success = int(Success); print(type(Success)); print(Success)
 #    Ztest = proportion.proportions_ztest(int(Success),int(event_num),value=test_proportion, alternative='two-sided')
     Ztest = proportion.proportions_ztest(10,100,0.09)
-    LIST = [Zc, Ztest[0], Ztest[1], Prop, test_proportion]
-    return LIST
+#    LIST = [Zc, Ztest[0], Ztest[1], Prop, test_proportion]
+#    return LIST
 
 
 

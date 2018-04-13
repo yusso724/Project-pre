@@ -30,7 +30,7 @@ def Sample_Variance(filename, ALPHA=0.05):
     Median = c1_median(infile)
     Range = c1_data_range(infile);    #print(Range)
     Total_Entry = c1_total_ENTRY(infile); Total_Entry = int(Total_Entry); str_TE = str(Total_Entry)
-    Mean = c1_mean(infile);  str_Mean = str(Mean)
+    Mean = c1_mean(infile);  str_Mean = "%0.3f"%(Mean); str_Mean = str(str_Mean)
     Var = c1_variance(infile);
     Std = c1_standard_deviation(infile); str_Std = "%0.3f"%(Std); str_Std = str(str_Std)
 #    Var = 0.5325
@@ -52,16 +52,16 @@ def Sample_Variance(filename, ALPHA=0.05):
     plt.grid(True)
     plt.title(filename_No_Txt)
     plt.xlabel("$\chi^2$")
-    TEXT = "Total Entry : " + str(Total_Entry) + "\n" + "POP Var Est : " + str_Var + "\n"+ "POP STD Est : " + str_Std
+    TEXT = "Total Entry : " + str(Total_Entry) + "\n" + "POP Var Est : " + str_Var + "\n"+ "POP STD Est : " + str_Std + "\n POP Mean Est : "+str_Mean
     plt.text((chi2.ppf(0.999999, df)-(chi2.ppf(0.999999, df)-chi2.ppf(0.000001, df))*0.05),MAX_CHI2*23/20,TEXT, fontsize=16, ha='right', va='top', rotation=0)
     p05 = "%0.3f"%(chi2.ppf(0.05,df)); p05 = str(p05)
     p025= "%0.3f"%(chi2.ppf(0.025,df));p025= str(p025)
     p95 = "%0.3f"%(chi2.ppf(0.95,df)); p95 = str(p95)
     p975= "%0.3f"%(chi2.ppf(0.975,df));p975= str(p975)
-    p05s = "%0.3f"%((df*Var)/chi2.ppf(0.95, df)); p05s = str(p05s)
     p025s= "%0.3f"%((df*Var)/chi2.ppf(0.975, df));p025s= str(p025s)
-    p95s = "%0.3f"%((df*Var)/chi2.ppf(0.05, df)); p95s = str(p95s)
     p975s= "%0.3f"%((df*Var)/chi2.ppf(0.025, df));p975s= str(p975s)
+    p025ss= "%0.3f"%(math.sqrt((df*Var)/chi2.ppf(0.975, df)));p025ss= str(p025ss)
+    p975ss= "%0.3f"%(math.sqrt((df*Var)/chi2.ppf(0.025, df)));p975ss= str(p975ss)
     plt.text(chi2.ppf(0.05,df),0,"|",fontsize=6, ha='center', va='center', rotation=0, color='g')
     plt.text(chi2.ppf(0.05,df),0,p05,fontsize=7, ha='center', va='top', rotation=0, color='g')
     plt.text(chi2.ppf(0.025,df),0,"|",fontsize=6, ha='center', va='center', rotation=0, color='r')
@@ -116,12 +116,22 @@ def Sample_Variance(filename, ALPHA=0.05):
     plt.savefig("test2.pdf")
     plt.close('all')
 
+#    if(Var - exp_Var < 0):
+#        Ex_num = 1+(exp_Var)*chi2.ppf(ALPHA/2,df)/Var
+#    elif(Var - exp_Var>0):
+#        Ex_num = 1+(Var-exp_Var)*(Var-exp_Var)*chi2.ppf(ALPHA/2,df)/Var+1
+#    print(Ex_num)
+#    print(chi2.ppf(ALPHA/2,df))
+#    print(chi2.ppf(1-ALPHA/2,df))
+
     RETURN_LIST = [float("%0.6f"%(LOW_chi2)), float("%0.6f"%(HIGH_chi2)), float("%0.6f"%(LOW_sigma)), float("%0.6f"%(HIGH_sigma)), Total_Entry, "alpha = " +str(ALPHA), float("%0.6f"%(Mean)),float("%0.6f"%(Var))]
     return RETURN_LIST
 
 def main():
-    infile = "/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/BEIJING_Aqi/Aqi_Beijing_tree_cut_Aqi_Beijing_f_AQI_hist.txt"
-#    infile = "gaus100.txt"
+#    infile = "/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/BEIJING_Aqi/Aqi_Beijing_tree_cut_Aqi_Beijing_f_AQI_hist.txt"
+    infile = "gaus100.txt"
+#    infile = "gaus60.txt"
+#    infile = "tea_0319Mon_LA_s_tree_tea_0319Mon_LA_s_V2_hist.txt"
 
     SV = Sample_Variance(infile)
     print(SV)
