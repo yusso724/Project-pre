@@ -9,7 +9,7 @@ sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/
 from c1_basic_statistic import *
 
 #Make sure that : np>=5 and also, n(1-p)>=5, in order to make sample proportion distribution smear to gaussian
-def Sample_proportion(proportion=0.1, event_num = 100,Title='', Xaxis_Name='', SIGMA=2, exp_Mean_error=0.001, ):
+def Sample_proportion(proportion=0.1, event_num = 100,Title='', Xaxis_Name='', SIGMA=2, exp_Mean_error=0.001 ):
     # returns [Mean-n*sigma,Mean+n*sigma,Total_Entry,Expected number to reach given sigma confidence interval, SIGMA, MEAN,sample_mean_error(std) ,exp_Mean_error] (exp_MEAN_error :: [Mean-exp_MEAN_error ,Mean+exp_MEAN_error] within given sigma confidence interval)
 
     # Xaxis_Name :: put what you want for Axis name
