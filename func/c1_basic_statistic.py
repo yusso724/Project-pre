@@ -5,6 +5,7 @@ def bin_num(filename):
     ii = 0
     for line in infile:
         ii = ii + 1
+    infile.close()
     return ii
 
 def most_frequent_bin(filename):
