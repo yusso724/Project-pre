@@ -83,14 +83,18 @@ def Sample_proportion(proportion=0.1, event_num = 100,Title='', Xaxis_Name='', S
 #    plt.show()
     plt.close('all')
 
-    Ex_Num = (SIGMA*Std/exp_Mean_error)*(SIGMA*Std/exp_Mean_error) 
+    Ex_Num = (SIGMA*math.sqrt(proportion*(1-proportion))/exp_Mean_error)*(SIGMA*math.sqrt(proportion*(1-proportion))/exp_Mean_error)
 
+#    print(Ex_Num)
     R_LIST = [float("%0.6f"%(Mean-SIGMA*Std)), float("%0.6f"%(Mean+SIGMA*Std)),event_num, float("%0.3f"%(Ex_Num)), str(SIGMA)+" SIGMA", float("%0.6f"%(Mean)), float("%0.6f"%(Std)), exp_Mean_error]
     return R_LIST
 
 
 def main():
-    twoSigma_region = Sample_proportion(proportion=0.031, event_num = 10000, SIGMA = 3, exp_Mean_error=0.0005)
+    Total = 63886.0; pos = 1841.0
+    pos_pro= pos/Total; #print(pos_pro)
+    twoSigma_region = Sample_proportion(proportion=pos_pro, event_num = Total, SIGMA = 3, exp_Mean_error=0.001)
+#    twoSigma_region = Sample_proportion(proportion=0.031, event_num = 10000, SIGMA = 3, exp_Mean_error=0.0005)
     print(twoSigma_region)    
 
 if __name__ == "__main__":
