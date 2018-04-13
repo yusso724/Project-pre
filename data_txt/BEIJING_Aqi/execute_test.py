@@ -13,7 +13,7 @@ sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/R
 #Infile = "data/ZRXBTC_5T.txt"
 #Infile = "data/sh600000.txt"
 #Infile = "data/tea_newyork/TEA_ALL.txt"
-Infile = "Aqi_Beijing.txt"
+Infile = "Aqi_Beijing_day.txt"
 from Raw_text_to_Tree_root import Raw_text_to_Tree_root
 To_Tree = Raw_text_to_Tree_root(Infile,".")
 
@@ -56,6 +56,7 @@ TXT_FILE_LIST =  D1H_roothist_to_txt(HistROOT_PATH, "")
 sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/func")
 from c1_basic_statistic import *
 from c2_basic_histo_plotting import Basic_histo
+from c5_single_sample_mean_distribution import Fit_Sample_Gaus_histo
 for Input_file in TXT_FILE_LIST:
     print("The file Name is :",Input_file)
     MODE = most_frequent_bin(Input_file);      print("MODE :",MODE)
@@ -67,4 +68,6 @@ for Input_file in TXT_FILE_LIST:
     STD = c1_standard_deviation(Input_file);   print("STD :",STD)
     print("\n")
     Basic_histo(Input_file)
+    Fit_Sample_Gaus_histo(Input_file, exp_Mean_error=10)
+    
 gBenchmark.Show("All in One")
