@@ -2,22 +2,23 @@ import numpy as np
 import math
 import sys,os
 import scipy
+from scipy import stats
 from statsmodels.stats import weightstats
 from sympy import exp,sqrt,pi,Integral
 sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/func/")
 from c1_basic_statistic import *
 
-#Single hypothesis examination of Mean value. To see whether given "test_MEAN" significantly different with sample "MEAN"
+#Single hypothesis examination of SAMPLE_MEAN value. To see whether given "TRUE_MEAN" significantly different with sample "MEAN"
 # "pvalue < alpha", say alpha = 0.05, reject H0, accept H1 within alpha level. 
-# Assume under n>=30, the t distribution could be smear to gaussian, so we did Ztest instead of t-test
-def bothSide_hypothesis(filename, test_MEAN=0):
-    #returns : [test_statistic, pvalue, sample_Mean, test_MEAN]
+# Assume under n>=30, the t distribution could be smear to gaussian, but we do Ttest to be more precised. 
+def bothSide_hypothesis(filename, TRUE_MEAN=0):
+    #returns : [test_statistic, pvalue, sample_SAMPLE_MEAN, TRUE_MEAN]
     
     #filename :: input filename
-    #test_MEAN :: The mean value to be tested, whether it is significantly different with sample mean. 
+    #TRUE_MEAN :: The mean value to be tested, whether it is significantly different with sample mean. 
 
-    # H0 : Sample_Mean = test_MEAN
-    # H1 : Sample_Mean != test_MEAN
+    # H0 : SAMPLE_MEAN = TRUE_MEAN
+    # H1 : SAMPLE_MEAN != TRUE_MEAN
     
     if(filename[0]=="/"):
         filename = filename
@@ -33,7 +34,7 @@ def bothSide_hypothesis(filename, test_MEAN=0):
     filename_No_Txt = FILENAME.replace(".txt","")
     infile = filename
 
-    Mean = c1_mean(infile)
+    SAMPLE_MEAN = c1_mean(infile)
 
     DATA_LIST = []
     f = open(infile,'r')
@@ -49,16 +50,19 @@ def bothSide_hypothesis(filename, test_MEAN=0):
 #    print(len(DATA_LIST))
     f.close()
 
-    Ztest = weightstats.ztest(DATA_LIST, value=test_MEAN ,alternative='two-sided') 
-#    Ttest = weightstats.ttest_ind(DATA_LIST, value=test_MEAN, alternative='two-sided')
-    List = [float("%0.6f"%(Ztest[0])), float("%0.6f"%(Ztest[1])), float("%0.6f"%(Mean)), test_MEAN]
+    Ztest = weightstats.ztest(DATA_LIST, value=TRUE_MEAN ,alternative='two-sided') 
+    Ttest = stats.ttest_1samp(DATA_LIST,TRUE_MEAN)
+#    print(Ttest[0]); print(Ttest[1])
+#    Ttest = weightstats.ttest_ind(DATA_LIST, x2=None, value=TRUE_MEAN, alternative='two-sided')
+#    print(Ttest)
+    List = [float("%0.6f"%(Ttest[0])), float("%0.6f"%(Ttest[1])), float("%0.6f"%(SAMPLE_MEAN)), TRUE_MEAN]
     return List
 
 
 def main():
-    inputfile = "gaus100.txt"
-    Z_test = bothSide_hypothesis(inputfile, test_MEAN = 10)
-    print(Z_test)
+    inputfile = "gaus30.txt"
+    T_test = bothSide_hypothesis(inputfile, TRUE_MEAN = 9.3)
+    print(T_test)
 
 if __name__=="__main__":
     main()
