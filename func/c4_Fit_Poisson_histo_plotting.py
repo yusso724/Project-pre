@@ -25,7 +25,7 @@ def Fit_Poisson_histo(filename, Xaxis_Name='', norm=1):
 
     infile = filename
     BIN_NUM = bin_num(infile);        #print(BIN_NUM)
-    Mode = most_frequent_bin(infile); print(type(Mode)); print(Mode)
+    Mode = most_frequent_bin(infile); #print(type(Mode)); print(Mode)
     Median = c1_median(infile)
     Range = c1_data_range(infile);    #print(Range)
     Total_Entry = c1_total_ENTRY(infile); Total_Entry = int(Total_Entry); str_TE = str(Total_Entry)
@@ -108,7 +108,8 @@ def Fit_Poisson_histo(filename, Xaxis_Name='', norm=1):
 def main():
 #    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/soomin/LA_s/EXE/beer_0319Mon_LA_s_tree_beer_0319Mon_LA_s_V1_hist.txt"
 #    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/soomin/LA_s/EXE/beer_0319Mon_LA_s_tree_beer_0319Mon_LA_s_V2_hist.txt"
-    inputfile = "gaus100.txt"
+#    inputfile = "gaus100.txt"
+    inputfile= "/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/BEIJING_Aqi/Aqi_Beijing_day_tree_cut_Aqi_Beijing_day_f_SO2_hist.txt"
 
 #    Fit_Poisson_histo(inputfile, ".X-axis.", norm=0)
     Fit_Poisson_histo(inputfile, ".X-axis.", norm=1)
