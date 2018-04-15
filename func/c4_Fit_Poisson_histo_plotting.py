@@ -96,10 +96,10 @@ def Fit_Poisson_histo(filename, Xaxis_Name='', norm=1):
         XLABEL = Xaxis_Name
     plt.xlabel(XLABEL)
     plt.title(filename_No_Txt)
-    SaveName = filename_No_Txt +"Poisson_normalized"+ ".pdf"
+    SaveName = filename_No_Txt +"_Poisson_normalized"+ ".pdf"
     plt.grid(True)
     plt.savefig(SaveName)
-    plt.show()
+#    plt.show()
     plt.close('all')
     f.close()
 
