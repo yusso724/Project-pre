@@ -10,7 +10,7 @@ from c1_basic_statistic import *
 # recommand to use on sample size bigger than 30, i.e. n>=30
 # Make sure the distribution follows gaussian distribution
 def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, norm=0, Show=True, Show_sample=True):
-    # returns [Mean-n*sigma,Mean+n*sigma,Total_Entry,Expected number to reach given sigma confidence interval, SIGMA, MEAN,sample_mean_error(std) ,exp_Mean_error]  (exp_MEAN_error :: [Mean-exp_MEAN_error ,Mean+exp_MEAN_error] within given sigma confidence interval)
+    # returns [Mean-n*sigma,Mean+n*sigma,Total_Entry,Expected number to reach given sigma confidence interval, SIGMA, MEAN,sample_mean_error(std) ,exp_Mean_error]  (exp_MEAN_error =  length of the half of confidence interval you want)
 
     # Xaxis_Name :: put what you want for Axis name
     # norm :: 0 for normalized histogram showing. (suggest do not change this value)
@@ -216,7 +216,7 @@ def main():
 #    inputfile = "beer_0319Mon_LA_s_tree_beer_0319Mon_LA_s_V2_hist.txt"
 #    inputfile = "tea_0319Mon_LA_s_tree_tea_0319Mon_LA_s_V2_hist.txt"
 
-    Two_sigma_range = Fit_Sample_Gaus_histo(inputfile, ".X-axis.", SIGMA=2, Show_sample=True, Show = True, exp_Mean_error=5)
+    Two_sigma_range = Fit_Sample_Gaus_histo(inputfile, ".X-axis.", SIGMA=2, Show_sample=True, Show = True, exp_Mean_error=0.1)
 #    Two_sigma_range = Fit_Sample_Gaus_histo(inputfile,SIGMA=1.96, exp_Mean_error=0.05)
     print(Two_sigma_range)
 

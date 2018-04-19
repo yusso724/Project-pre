@@ -9,6 +9,7 @@ sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/
 from c1_basic_statistic import * 
 
 #### The sample should be extracted from Gaussian distribution of Population 
+#### In the case n<=30
 def t_distribution(filename,Xaxis_Name='', Show_T=True, Show_sample=True, Show_Gaus=False):
     #return [Sample_Mean-2sigma,Sample_Mean+2sigma,Total_Entry,Sample_Mean]
 
@@ -31,9 +32,9 @@ def t_distribution(filename,Xaxis_Name='', Show_T=True, Show_sample=True, Show_G
     Median = c1_median(infile)
     Range = c1_data_range(infile);    #print(Range)
     Total_Entry = c1_total_ENTRY(infile); Total_Entry = int(Total_Entry); str_TE = str(Total_Entry)
-    Mean = c1_mean(infile);  str_Mean = str(Mean)
+    Mean = c1_mean(infile);  str_Mean = str(Mean); str_Mean = str_Mean[:len(str_TE)+2];
     Var = c1_variance(infile);
-    Std = c1_standard_deviation(infile); str_Std = str(Std)
+    Std = c1_standard_deviation(infile); str_Std = str(Std); str_Std = str_Std[:len(str_TE)+2];
     SSEM = c1_sample_standard_error_of_mean(infile);
     shorten_SSEM = "%0.4f"%(SSEM)
     str_SSEM = str(shorten_SSEM)
@@ -57,6 +58,8 @@ def t_distribution(filename,Xaxis_Name='', Show_T=True, Show_sample=True, Show_G
     for i in range(len(gaussian)):
         if(gaussian[i]>=MAX_G):
             MAX_G = gaussian[i]
+    for i in range(len(gaussian)):
+        gaussian[i] = gaussian[i] * MAX_T/MAX_G
 
     X_AXIS = []
     X_WIDTH = []
@@ -72,7 +75,7 @@ def t_distribution(filename,Xaxis_Name='', Show_T=True, Show_sample=True, Show_G
 
     INT_Confi = t(df=df).ppf((0.025,0.975))
     INT_Confi = [Mean+INT_Confi[0]*Std/math.sqrt(Total_Entry),Mean+INT_Confi[1]*Std/math.sqrt(Total_Entry)] 
-    print("95% confi interval",INT_Confi)
+#    print("95% confi interval",INT_Confi)
 
     MAX_Y=0
     for i in range(len(Y_VALUE)):
@@ -88,19 +91,20 @@ def t_distribution(filename,Xaxis_Name='', Show_T=True, Show_sample=True, Show_G
         plt.plot(x, t_dist ,color='b', label='T Distribution')
     TEXT = "Total Entry : " + str(Total_Entry) + "\n" + "POP Mean Est: " + str_Mean + "\n" + "POP Std Est: " + str_Std \
            + "\n" + "Sample Mean STD: " + str_SSEM
-    if(Show_Gaus==True):
+#    if(Show_Gaus==True):
 #        plt.axis([XaxisL,XaxisH,0,MAX_G*25/20])
-        plt.axis([X_AXIS[0],X_AXIS[BinN-1],0,MAX_G*25/20])
-        plt.plot(x, gaussian, color='black', lw=0.5)
-        plt.text(Range[1]-(Range[1]-Range[0])*0.05,MAX_G*24/20, TEXT, fontsize=16, ha='right', va='top', rotation=0)
+#        plt.axis([X_AXIS[0],X_AXIS[BinN-1],0,MAX_G*25/20])
+#        plt.plot(x, gaussian, color='black', lw=0.5)
+#        plt.text(Range[1]-(Range[1]-Range[0])*0.05,MAX_G*24/20, TEXT, fontsize=16, ha='right', va='top', rotation=0)
 #        plt.text(XaxisH-(XaxisH-XaxisL)*0.005, MAX_G*24/20, TEXT, fontsize=16, ha='right', va='top', rotation=0)
-        MAX = MAX_G
-    else:
+#        MAX = MAX_T
+#    else:
 #        plt.axis([XaxisL,XaxisH,0,MAX_T*25/20])
-        plt.axis([X_AXIS[0],X_AXIS[BinN-1],0,MAX_T*25/20])
-        plt.text(Range[1]-(Range[1]-Range[0])*0.005,MAX_T*24/20, TEXT, fontsize=16, ha='right', va='top', rotation=0)
+    plt.axis([X_AXIS[0],X_AXIS[BinN-1],0,MAX_T*25/20])
+    plt.text(Range[1]-(Range[1]-Range[0])*0.05,MAX_T*24/20, TEXT, fontsize=16, ha='right', va='top', rotation=0)
+    plt.plot(x, gaussian, color='black', lw=0.5)
 #        plt.text(XaxisH-(XaxisH-XaxisL)*0.005, MAX_T*24/20, TEXT, fontsize=16, ha='right', va='top', rotation=0)
-        MAX = MAX_T
+    MAX = MAX_T
     if(Show_sample==True):
         barlist = plt.bar(X_AXIS,Y_VALUE,X_WIDTH[0],fill=False)
         for i in range(len(barlist)):
@@ -127,8 +131,8 @@ def t_distribution(filename,Xaxis_Name='', Show_T=True, Show_sample=True, Show_G
     plt.text(INT_Confi[0],MAX/8,"$\overline{x}  - 2\sigma_x$", fontsize=18, ha='right', va='top', rotation=0, color='r')
     plt.text(INT_Confi[1],0,"|",fontsize=13, ha='center', va='bottom', rotation=0, color='r')
     plt.text(INT_Confi[1],MAX/8,"$\overline{x}  + 2\sigma_x$", fontsize=18, ha='left', va='top', rotation=0, color='r')
-    plt.text(INT_Confi[0],MAX/20,sample_two_sigma_left,fontsize=7.5, ha='right', va='bottom', rotation=0, color='r')
-    plt.text(INT_Confi[1],MAX/20,sample_two_sigma_right,fontsize=7.5, ha='left', va='bottom', rotation=0, color='r')
+    plt.text(INT_Confi[0],MAX/24,sample_two_sigma_left,fontsize=7.5, ha='right', va='bottom', rotation=0, color='r')
+    plt.text(INT_Confi[1],MAX/24,sample_two_sigma_right,fontsize=7.5, ha='left', va='bottom', rotation=0, color='r')
 
     if(Xaxis_Name == ''):
         XLABEL = filename_No_Txt.replace("_hist",'')
