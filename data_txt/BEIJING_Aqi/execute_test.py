@@ -4,16 +4,21 @@ gBenchmark.Start("All in One")
 import sys
 import os
 
+#INfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/concrete.txt"
+#INfile = "/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/BINANCE_DATA.txt"
+#INfile = "/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/BBINA.txt"
+#INfile = "data/soomin.txt"
+#INfile = "data/ZRXBTC_1T.txt"
+#INfile = "data/ZRXBTC_5T.txt"
+#INfile = "data/sh600000.txt"
+#INfile = "data/tea_newyork/TEA_ALL.txt"
+#INfile = "Aqi_Beijing_day.txt"
+INfile = "carbon_copied_data/Aqi_Beijing_holi_byej.txt"
+sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/func")
+from d1_remake_txt import MakeTXT
+Infile = MakeTXT(INfile)
+
 sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/functions/rawTxt_Tree_root")
-#Infile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/concrete.txt"
-#Infile = "/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/BINANCE_DATA.txt"
-#Infile = "/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/BBINA.txt"
-#Infile = "data/soomin.txt"
-#Infile = "data/ZRXBTC_1T.txt"
-#Infile = "data/ZRXBTC_5T.txt"
-#Infile = "data/sh600000.txt"
-#Infile = "data/tea_newyork/TEA_ALL.txt"
-Infile = "Aqi_Beijing_day.txt"
 from Raw_text_to_Tree_root import Raw_text_to_Tree_root
 To_Tree = Raw_text_to_Tree_root(Infile,".")
 
@@ -56,7 +61,10 @@ TXT_FILE_LIST =  D1H_roothist_to_txt(HistROOT_PATH, "")
 sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/func")
 from c1_basic_statistic import *
 from c2_basic_histo_plotting import Basic_histo
-from c5_single_sample_mean_distribution import Fit_Sample_Gaus_histo
+from c4_Fit_Poisson_histo_plotting import Fit_Poisson_histo
+from c5_single_sample_mean_Zdistribution import Fit_Sample_Gaus_histo
+from c5_single_sample_mean_Tdistribution import t_distribution
+from c7_single_sample_variance_distribution import Sample_Variance
 for Input_file in TXT_FILE_LIST:
     print("The file Name is :",Input_file)
     MODE = most_frequent_bin(Input_file);      print("MODE :",MODE)
@@ -68,6 +76,9 @@ for Input_file in TXT_FILE_LIST:
     STD = c1_standard_deviation(Input_file);   print("STD :",STD)
     print("\n")
     Basic_histo(Input_file)
+    Fit_Poisson_histo(Input_file)
     Fit_Sample_Gaus_histo(Input_file, exp_Mean_error=10)
-    
+#    t_distribution(Input_file, Show_T=True, Show_sample=True, Show_Gaus=False)
+    t_distribution(Input_file, Show_T=True, Show_sample=True, Show_Gaus=True)
+    Sample_Variance(Input_file)
 gBenchmark.Show("All in One")
