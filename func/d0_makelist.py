@@ -1,8 +1,6 @@
-import math
 
 # Need to input RAW DATA!!!
 def MakeList(filename):
-    print("test")
     if(filename[0]=="/"):
         filename = filename
     else:
@@ -17,13 +15,39 @@ def MakeList(filename):
     filename_No_Txt = FILENAME.replace(".txt","")
     infile = filename
 
+
     ff = open(infile,"r")
     FILE_LIST = []
     for line in ff:
         FILE_LIST.append(line.split())
     ff.close()
-    return FILE_LIST
+    '''    
+    for i in range(FILE_LIST):
+        for j in range(FILE_LIST[i]):
+            FILE_LIST[i][j] =  
+    '''
+    LEN = len(FILE_LIST)
+    clen = len(FILE_LIST[0])
+    KLIST = []
+    for i in range(LEN):
+        if((len(FILE_LIST[i])==1) & (FILE_LIST[i][0]=='\x00')):
+            pass
+        else:
+            KLIST.append(FILE_LIST[i])
 
+    LEN = len(KLIST)
+    KKLIST = []
+    for i in range(LEN):
+        for j in range(len(KLIST[i])):
+            KLIST[i][j] = KLIST[i][j].replace('\x00',"")
+            KLIST[i][j] = KLIST[i][j].replace('\xff\xfe','')
+        KKLIST.append(KLIST[i])
+
+    for i in range(len(KKLIST)):
+        KKLIST[i] = filter(None,KKLIST[i])
+
+    return KKLIST
+    
 
 def main():
     inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/BEIJING_Aqi/Aqi_Beijing_day.txt"
