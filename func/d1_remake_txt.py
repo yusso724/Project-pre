@@ -1,3 +1,4 @@
+import os, sys
 
 # Need to input RAW DATA!!!
 def MakeTXT(filename):
