@@ -50,7 +50,8 @@ def double_mean_Zdistribution(filename="test",sample_mean1=0, std1=1, tot1=100,s
     plt.text(MEAN-2*STD,0,r"$\mu - 2\sigma$",fontsize=13, ha='right', va='bottom', rotation=0, color='red')
     plt.text(MEAN+2*STD,0,r"$\mu + 2\sigma$",fontsize=13, ha='right', va='bottom', rotation=0, color='red')
     
-
+    plt.axvline(MEAN-STD)
+    plt.axvline(MEAN+STD)
     plt.plot(tt,gaussian, color='r')
     plt.grid(True)
 #    plt.show()
