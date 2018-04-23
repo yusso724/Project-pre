@@ -9,6 +9,7 @@ sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/
 from c1_basic_statistic import *
 
 def double_mean_Zdistribution(filename="test",sample_mean1=0, std1=1, tot1=100,sample_mean2=1, std2=2, tot2=100):
+    #no return value
     MEAN = float(sample_mean1) - float(sample_mean2)
     VAR = (float(std1)*float(std1)/tot1 + float(std2)*float(std2)/tot2) 
     STD = math.sqrt(VAR)
