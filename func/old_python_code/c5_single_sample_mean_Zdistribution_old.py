@@ -9,7 +9,7 @@ from c1_basic_statistic import *
 
 # recommand to use on sample size bigger than 30, i.e. n>=30
 # Make sure the distribution follows gaussian distribution
-def Fit_Sample_Gaus_histo(filename,calc_file='', Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, norm=0, Show=True, Show_sample=True):
+def Fit_Sample_Gaus_histo(filename, Xaxis_Name='', SIGMA=2,exp_Mean_error=0.1, norm=0, Show=True, Show_sample=True):
     # returns [Mean-n*sigma,Mean+n*sigma,Total_Entry,Expected number to reach given sigma confidence interval, SIGMA, MEAN,sample_mean_error(std) ,exp_Mean_error]  (exp_MEAN_error =  length of the half of confidence interval you want)
 
     # Xaxis_Name :: put what you want for Axis name
@@ -18,9 +18,6 @@ def Fit_Sample_Gaus_histo(filename,calc_file='', Xaxis_Name='', SIGMA=2,exp_Mean
     # SIGMA :: pick your sigma range to be returned
     # Show :: if True, the maximum y value of canvas would be sample_mean_distribution's Maximum value
     # Show_sample :: if True, it will print the sample distribution as well
-
-    if calc_file =='':
-        calc_file = filename
 
     if(filename[0]=="/"):
         filename = filename
@@ -35,31 +32,16 @@ def Fit_Sample_Gaus_histo(filename,calc_file='', Xaxis_Name='', SIGMA=2,exp_Mean
     FILENAME = filename.replace(filename[:-loca],"")   # this is the shorten filename
     filename_No_Txt = FILENAME.replace(".txt","")
 
-    if(calc_file[0]=="/"):
-        calc_file = calc_file
-    else:
-        calc_file = os.getcwd() + "/" + calc_file   # get the path included calc_file
-    loca=len(calc_file)
-    for i in range (1,len(calc_file)+1):       # find the "/" location
-        if(calc_file[-i] == "/"):
-            loca = i-1
-            break
-
-    FILENAME = calc_file.replace(calc_file[:-loca],"")   # this is the shorten calc_file
-    calc_file_No_Txt = FILENAME.replace(".txt","")
-
     infile = filename
-    calc_infile = calc_file
-
     BIN_NUM = bin_num(infile);        #print(BIN_NUM)
     Mode = most_frequent_bin(infile); #print(type(Mode)); print(Mode)
-    Median = c1_median(calc_infile)
-    Range = c1_data_range(calc_infile);    #print(Range)
-    Total_Entry = c1_total_ENTRY(calc_infile); Total_Entry = int(Total_Entry); str_TE = str(Total_Entry)
-    Mean = c1_mean(calc_infile);  str_Mean = str(Mean)
-    Var = c1_variance(calc_infile);
-    Std = c1_standard_deviation(calc_infile); str_Std = str(Std)
-    SSEM = c1_sample_standard_error_of_mean(calc_infile); 
+    Median = c1_median(infile)
+    Range = c1_data_range(infile);    #print(Range)
+    Total_Entry = c1_total_ENTRY(infile); Total_Entry = int(Total_Entry); str_TE = str(Total_Entry)
+    Mean = c1_mean(infile);  str_Mean = str(Mean)
+    Var = c1_variance(infile);
+    Std = c1_standard_deviation(infile); str_Std = str(Std)
+    SSEM = c1_sample_standard_error_of_mean(infile); 
     shorten_SSEM = "%0.4f"%(SSEM)
     str_SSEM = str(shorten_SSEM)
 

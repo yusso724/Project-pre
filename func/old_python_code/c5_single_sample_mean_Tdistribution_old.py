@@ -10,11 +10,8 @@ from c1_basic_statistic import *
 
 #### The sample should be extracted from Gaussian distribution of Population 
 #### In the case n<=30
-def t_distribution(filename,calc_file='',Xaxis_Name='', Show_T=True, Show_sample=True, Show_Gaus=False):
+def t_distribution(filename,Xaxis_Name='', Show_T=True, Show_sample=True, Show_Gaus=False):
     #return [Sample_Mean-2sigma,Sample_Mean+2sigma,Total_Entry,Sample_Mean]
-
-    if calc_file =='':
-        calc_file = filename
 
     if(filename[0]=="/"):
         filename = filename
@@ -29,32 +26,16 @@ def t_distribution(filename,calc_file='',Xaxis_Name='', Show_T=True, Show_sample
     FILENAME = filename.replace(filename[:-loca],"")   # this is the shorten filename
     filename_No_Txt = FILENAME.replace(".txt","")
 
-    if(calc_file[0]=="/"):
-        calc_file = calc_file
-    else:
-        calc_file = os.getcwd() + "/" + calc_file   # get the path included calc_file
-    loca=len(calc_file)
-    for i in range (1,len(calc_file)+1):       # find the "/" location
-        if(calc_file[-i] == "/"):
-            loca = i-1
-            break
-
-    FILENAME = calc_file.replace(calc_file[:-loca],"")   # this is the shorten calc_file
-    calc_file_No_Txt = FILENAME.replace(".txt","")
-
-
     infile = filename
-    calc_infile = calc_file
-
     BIN_NUM = bin_num(infile);        #print(BIN_NUM)
     Mode = most_frequent_bin(infile); #print(type(Mode)); print(Mode)
-    Median = c1_median(calc_infile)
-    Range = c1_data_range(calc_infile);    #print(Range)
-    Total_Entry = c1_total_ENTRY(calc_infile); Total_Entry = int(Total_Entry); str_TE = str(Total_Entry)
-    Mean = c1_mean(calc_infile);  str_Mean = str(Mean); str_Mean = str_Mean[:len(str_TE)+2];
-    Var = c1_variance(calc_infile);
-    Std = c1_standard_deviation(calc_infile); str_Std = str(Std); str_Std = str_Std[:len(str_TE)+2];
-    SSEM = c1_sample_standard_error_of_mean(calc_infile);
+    Median = c1_median(infile)
+    Range = c1_data_range(infile);    #print(Range)
+    Total_Entry = c1_total_ENTRY(infile); Total_Entry = int(Total_Entry); str_TE = str(Total_Entry)
+    Mean = c1_mean(infile);  str_Mean = str(Mean); str_Mean = str_Mean[:len(str_TE)+2];
+    Var = c1_variance(infile);
+    Std = c1_standard_deviation(infile); str_Std = str(Std); str_Std = str_Std[:len(str_TE)+2];
+    SSEM = c1_sample_standard_error_of_mean(infile);
     shorten_SSEM = "%0.4f"%(SSEM)
     str_SSEM = str(shorten_SSEM)
 
