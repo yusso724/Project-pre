@@ -158,9 +158,21 @@ def c1_variance(filename):    # actually, this is variance of a sample from popu
 
     MEAN = c1_mean(filename)
     med_var = 0
+    '''
     for i in range(len(LMBin)):
         for j in range((int(LEntry[i]))):
             med_var = med_var + (LMBin[i] - MEAN)*(LMBin[i] - MEAN)
+    '''
+    for i in range(len(LMBin)):
+        if(LEntry[i] == 0.0):
+            continue
+        else:
+            deno = float(LFBin[i]-LIBin[i])/float(LEntry[i])
+            for j in range((int(LEntry[i]))):
+                deno_m = float(LIBin[i]) + deno*(2*j+1)/2
+                med_var = med_var+(deno_m - MEAN)*(deno_m - MEAN)
+    
+
     VAR = med_var / (Total_Entry-1)
 
 #    print(" Variance Value =",VAR,"!!!!")
