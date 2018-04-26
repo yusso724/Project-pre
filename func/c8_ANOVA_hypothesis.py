@@ -64,15 +64,16 @@ def Anova_oneway_Random_sameE(filelist=[], alpha=0.05):
     print("Sample number : ", ENTRY)
 
     p_value = F_TEST.cdf(F_Ratio,dfB,dfW); #print(p_value)
+    p_value = 1-p_value
     return [alpha, p_value, len(filelist), ENTRY]
-    # "p_value > alpha" means: reject H0, accept alternative H1
+    # "p_value < alpha" means: reject H0, accept alternative H1
     #https://stackoverflow.com/questions/21494141/how-do-i-do-a-f-test-in-python
 
 def main():
-#    FLIST = ["/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/BEIJING_Aqi/carbon_copied_data/n0_basic_day/Aqi_Beijing_Holi_re_tree_cut_Aqi_Beijing_Holi_re_f_SO2_hist.txt",
-#             "/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/BEIJING_Aqi/carbon_copied_data/n0_basic_day/Aqi_Beijing_Holi_re_tree_cut_Aqi_Beijing_Holi_re_f_AQI_hist.txt",
-#             "../data_txt/BEIJING_Aqi/carbon_copied_data/n0_basic_day/Aqi_Beijing_Holi_re_tree_cut_Aqi_Beijing_Holi_re_f_CO_hist.txt"]
-    FLIST = ["../data_txt/BEIJING_Aqi/carbon_copied_data/n0_basic_day/Aqi_Beijing_Holi_re_tree_cut_Aqi_Beijing_Holi_re_f_CO_hist.txt","../data_txt/BEIJING_Aqi/carbon_copied_data/n0_basic_day/Aqi_Beijing_Holi_re_tree_cut_Aqi_Beijing_Holi_re_f_CO_hist.txt","../data_txt/BEIJING_Aqi/carbon_copied_data/n0_basic_day/Aqi_Beijing_Holi_re_tree_cut_Aqi_Beijing_Holi_re_f_CO_hist.txt"]
+    FLIST = ["/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/BEIJING_Aqi/carbon_copied_data/n0_basic_day/Aqi_Beijing_Holi_re_tree_cut_Aqi_Beijing_Holi_re_f_SO2_hist.txt",
+             "/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/BEIJING_Aqi/carbon_copied_data/n0_basic_day/Aqi_Beijing_Holi_re_tree_cut_Aqi_Beijing_Holi_re_f_AQI_hist.txt",
+             "../data_txt/BEIJING_Aqi/carbon_copied_data/n0_basic_day/Aqi_Beijing_Holi_re_tree_cut_Aqi_Beijing_Holi_re_f_CO_hist.txt"]
+#    FLIST = ["../data_txt/BEIJING_Aqi/carbon_copied_data/n0_basic_day/Aqi_Beijing_Holi_re_tree_cut_Aqi_Beijing_Holi_re_f_CO_hist.txt","../data_txt/BEIJING_Aqi/carbon_copied_data/n0_basic_day/Aqi_Beijing_Holi_re_tree_cut_Aqi_Beijing_Holi_re_f_CO_hist.txt","../data_txt/BEIJING_Aqi/carbon_copied_data/n0_basic_day/Aqi_Beijing_Holi_re_tree_cut_Aqi_Beijing_Holi_re_f_CO_hist.txt"]
 
     One_Anova = Anova_oneway_Random_sameE(filelist = FLIST)
     print(One_Anova)
