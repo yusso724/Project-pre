@@ -13,9 +13,11 @@ def Variance_both_side(VAR1 = 1, tot1=100, VAR2 = 0.5, tot2=100, alpha=0.05):
     p975 = F_TEST.ppf(0.975, df1, df2)
     #print(p025, p975)
     return [alpha,p_value, VAR1, tot1, VAR2, tot2]
+    # p_value > alpha --> Reject the null hypothesis that Var(X) == Var(Y)
+    #https://stackoverflow.com/questions/21494141/how-do-i-do-a-f-test-in-python
 
 def main():
-    F_test = Variance_both_side(VAR1 = 10, tot1=10000, VAR2=10.5, tot2=10000)
+    F_test = Variance_both_side(VAR1 = 10, tot1=10, VAR2=10.5, tot2=10)
     print(F_test)
 
 if __name__=="__main__":
