@@ -13,7 +13,7 @@ import os
 #INfile = "data/sh600000.txt"
 #INfile = "data/tea_newyork/TEA_ALL.txt"
 #INfile = "Aqi_Beijing_day.txt"
-INfile = "carbon_copied_data/Aqi_Beijing_holi_byej.txt"
+INfile = "carbon_copied_data/Aqi_Beijing_day.txt"
 sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/func")
 from d1_remake_txt import MakeTXT
 Infile = MakeTXT(INfile)
@@ -50,35 +50,51 @@ NEW_Tree_PATH = REGENERATE_TREE_WITH_CUT(To_Tree,".")
 
 from Tree_to_D2H_Convert import CONVERT_WORKING2D
 from Tree_to_D1H_Convert import CONVERT_WORKING
+from Tree_to_D1H_Convert_largeBin import CONVERT_WORKING_largeBin
 HistROOT_PATH = CONVERT_WORKING(NEW_Tree_PATH,"")
+HistROOT_PATH_largeBin = CONVERT_WORKING_largeBin(NEW_Tree_PATH,"")
 CONVERT_WORKING2D(NEW_Tree_PATH,"")
+
+
 
 sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/functions/rootHist_TXT/func")
 from D1H_rootHist_TXT_conversion import D1H_roothist_to_txt
+from D1H_rootHist_TXT_conversion_largeBin import D1H_roothist_to_txt_largeBin
 TXT_FILE_LIST =  D1H_roothist_to_txt(HistROOT_PATH, "")
-
+TXT_FILE_LIST_largeBin =  D1H_roothist_to_txt_largeBin(HistROOT_PATH_largeBin, "")
 
 sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/func")
 from c1_basic_statistic import *
 from c2_basic_histo_plotting import Basic_histo
+#from c2_basic_histo_plotting import Basic_histo
 from c4_Fit_Poisson_histo_plotting import Fit_Poisson_histo
 from c5_single_sample_mean_Zdistribution import Fit_Sample_Gaus_histo
 from c5_single_sample_mean_Tdistribution import t_distribution
 from c7_single_sample_variance_distribution import Sample_Variance
-for Input_file in TXT_FILE_LIST:
-    print("The file Name is :",Input_file)
-    MODE = most_frequent_bin(Input_file);      print("MODE :",MODE)
-    DATA_RANGE = c1_data_range(Input_file);    print("DATA_RANGE :",DATA_RANGE)
-    MEDIAN = c1_median(Input_file);            print("MEDIAN :",MEDIAN)
-    Total_ENTRY = c1_total_ENTRY(Input_file);  print("Total_ENTRY :",Total_ENTRY)
-    MEAN = c1_mean(Input_file);                print("MEAN :",MEAN)
-    VARIANCE = c1_variance(Input_file);        print("VARIANCE :",VARIANCE)
-    STD = c1_standard_deviation(Input_file);   print("STD :",STD)
-    print("\n")
-    Basic_histo(Input_file)
-    Fit_Poisson_histo(Input_file)
-    Fit_Sample_Gaus_histo(Input_file, exp_Mean_error=10)
-#    t_distribution(Input_file, Show_T=True, Show_sample=True, Show_Gaus=False)
-    t_distribution(Input_file, Show_T=True, Show_sample=True, Show_Gaus=True)
-    Sample_Variance(Input_file)
+#for Input_file in TXT_FILE_LIST:
+for ij in range(len(TXT_FILE_LIST)):
+    print("The file Name is :",TXT_FILE_LIST[ij])
+#    MODE = most_frequent_bin(TXT_FILE_LIST[ij]);      print("MODE :",MODE)
+#    DATA_RANGE = c1_data_range(TXT_FILE_LIST[ij]);    print("DATA_RANGE :",DATA_RANGE)
+#    MEDIAN = c1_median(TXT_FILE_LIST[ij]);            print("MEDIAN :",MEDIAN)
+#    Total_ENTRY = c1_total_ENTRY(TXT_FILE_LIST[ij]);  print("Total_ENTRY :",Total_ENTRY)
+#    MEAN = c1_mean(TXT_FILE_LIST[ij]);                print("MEAN :",MEAN)
+#    VARIANCE = c1_variance(TXT_FILE_LIST[ij]);        print("VARIANCE :",VARIANCE)
+#    STD = c1_standard_deviation(TXT_FILE_LIST[ij]);   print("STD :",STD)
+#    print("\n")
+    Basic_histo(TXT_FILE_LIST[ij], TXT_FILE_LIST_largeBin[ij])
+    Fit_Poisson_histo(TXT_FILE_LIST[ij], TXT_FILE_LIST_largeBin[ij])
+    Fit_Sample_Gaus_histo(TXT_FILE_LIST[ij], TXT_FILE_LIST_largeBin[ij], exp_Mean_error=10)
+#    t_distribution(TXT_FILE_LIST[ij], TXT_FILE_LIST_largeBin[ij], Show_T=True, Show_sample=True, Show_Gaus=False)
+    t_distribution(TXT_FILE_LIST[ij],TXT_FILE_LIST_largeBin[ij], Show_T=True, Show_sample=True, Show_Gaus=True)
+    Sample_Variance(TXT_FILE_LIST[ij], TXT_FILE_LIST_largeBin[ij])
 gBenchmark.Show("All in One")
+
+os.system("rm -rf ROOT_plots")
+os.system("rm -rf ROOT_hist_texts")
+os.system("mkdir ROOT_plots")
+os.system("mkdir ROOT_hist_texts")
+os.system("mv *py.pdf python_plots")
+os.system("mv *.pdf ROOT_plots")
+os.system("mv *hist.txt ROOT_hist_texts")
+os.system("mv *hist_largeBin.txt ROOT_hist_texts")
