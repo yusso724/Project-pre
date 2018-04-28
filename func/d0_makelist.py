@@ -2,7 +2,10 @@ import os
 
 # Need to input RAW DATA!!!
 def MakeList(filename):
+    print(filename)
     if(filename[0]=="/"):
+        filename = filename
+    elif((filename[0]=="C")&(filename[1]==":")):
         filename = filename
     else:
         filename = os.getcwd() + "/" + filename   # get the path included filename
@@ -12,10 +15,11 @@ def MakeList(filename):
             loca = i-1
             break
 
+
+
     FILENAME = filename.replace(filename[:-loca],"")   # this is the shorten filename
     filename_No_Txt = FILENAME.replace(".txt","")
     infile = filename
-
 
     ff = open(infile,"r")
     FILE_LIST = []
@@ -52,7 +56,8 @@ def MakeList(filename):
 
 def main():
 #    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/BEIJING_Aqi/Aqi_Beijing_day.txt"
-    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/BEIJING_Aqi/carbon_copied_data/n0_basic_day/Aqi_Beijing_Holi.txt"
+#    inputfile = "/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/BEIJING_Aqi/carbon_copied_data/n0_basic_day/Aqi_Beijing_Holi.txt"
+    inputfile = "../data_txt/BEIJING_Aqi/carbon_copied_data/n0_basic_day/Aqi_Beijing_Holi.txt"
     con_list = MakeList(inputfile)
     print(con_list)
 
