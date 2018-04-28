@@ -45,7 +45,7 @@ def MakeTXT(filename):
         KKLIST.append(KLIST[i])
 
     for i in range(len(KKLIST)):
-        KKLIST[i] = filter(None,KKLIST[i])
+        KKLIST[i] = list(filter(None,KKLIST[i]))
 
     FN = infile.replace(".txt","_re.txt")
     Of = open(FN,"w+")
