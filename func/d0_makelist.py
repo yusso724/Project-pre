@@ -1,3 +1,4 @@
+import os
 
 # Need to input RAW DATA!!!
 def MakeList(filename):

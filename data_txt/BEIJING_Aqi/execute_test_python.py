@@ -5,10 +5,9 @@ INfile = "Aqi_Beijing_Holi.txt"
 BIN_Num = 20
 
 sys.path.append("../../func")
-from d1_remake_txt import MakeTXT
-Infile = MakeTXT(INfile)
-
-sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/functions/rootHist_TXT/func")
+#from d1_remake_txt import MakeTXT
+#Infile = MakeTXT(INfile)
+Infile = INfile
 
 sys.path.append("../../func")
 from RAW_to_HIST_txt import Converting
