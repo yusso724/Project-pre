@@ -7,7 +7,6 @@ BIN_Num = 20
 sys.path.append("../../func")
 from d1_remake_txt import MakeTXT
 Infile = MakeTXT(INfile)
-#Infile = INfile
 
 sys.path.append("../../func")
 from RAW_to_HIST_txt import Converting
