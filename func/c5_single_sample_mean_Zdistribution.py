@@ -24,6 +24,8 @@ def Fit_Sample_Gaus_histo(filename,calc_file='', Xaxis_Name='', SIGMA=2,exp_Mean
 
     if(filename[0]=="/"):
         filename = filename
+    elif((filename[0]=="C")&(filename[1]==":")):
+        filename = filename
     else:
         filename = os.getcwd() + "/" + filename   # get the path included filename
     loca=len(filename)

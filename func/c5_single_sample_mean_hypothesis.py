@@ -22,6 +22,8 @@ def bothSide_hypothesis(filename, TEST_MEAN=0):
     
     if(filename[0]=="/"):
         filename = filename
+    elif((filename[0]=="C")&(filename[1]==":")):
+        filename = filename
     else:
         filename = os.getcwd() + "/" + filename   # get the path included filename
     loca=len(filename)
