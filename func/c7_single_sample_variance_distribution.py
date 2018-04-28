@@ -31,6 +31,8 @@ def Sample_Variance(filename, calc_file='',ALPHA=0.05):
 
     if(calc_file[0]=="/"):
         calc_file = calc_file
+    elif((calc_file[0]=="C")&(calc_file[1]==":")):
+        calc_file = calc_file
     else:
         calc_file = os.getcwd() + "/" + calc_file   # get the path included calc_file
     loca=len(calc_file)

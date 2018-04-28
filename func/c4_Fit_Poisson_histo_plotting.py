@@ -30,6 +30,8 @@ def Fit_Poisson_histo(filename,calc_file='', Xaxis_Name='', norm=1):
 
     if(calc_file[0]=="/"):
         calc_file = calc_file
+    elif((calc_file[0]=="C")&(calc_file[1]==":")):
+        calc_file = calc_file
     else:
         calc_file = os.getcwd() + "/" + calc_file   # get the path included calc_file
     loca=len(calc_file)
