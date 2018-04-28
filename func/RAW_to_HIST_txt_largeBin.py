@@ -7,6 +7,8 @@ from d0_min_max_except_index0 import min_max_range
 def Converting_largeBin(filename, NBINS=10000):
     if(filename[0]=="/"):
         filename = filename
+    elif((filename[0]=="C")&(filename[1]==":")):
+        filename = filename
     else:
         filename = os.getcwd() + "/" + filename   # get the path included filename
     loca=len(filename)
