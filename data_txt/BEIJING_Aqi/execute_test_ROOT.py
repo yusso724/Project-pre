@@ -43,7 +43,7 @@ from Tree_to_D1H_Components import Tree_to_D1H_Components
 Tree_to_D1H_Components(To_Tree)
 
 
-from Tree_to_D1H_CutnGenerate import REGENERATE_TREE_WITH_CUT
+from Tree_to_D1H_CutnGenerate_BEIJING_AIR import REGENERATE_TREE_WITH_CUT
 NEW_Tree_PATH = REGENERATE_TREE_WITH_CUT(To_Tree,".")
 
 
@@ -58,9 +58,15 @@ twoD_plot_save = "root -l -q /Users/leejunho/Desktop/git/python3Env/group_study/
 os.system(twoD_plot_save)
 os.system("mkdir 2D_defalut")
 os.system("mkdir 2D_colz")
+os.system("mkdir 2D_surf3")
 os.system("mv *defalut_2D.pdf 2D_defalut")
 os.system("mv *colz_2D.pdf 2D_colz")
+os.system("mv *surf3_2D.pdf 2D_surf3")
 
+twoD_profile_pol_save = "root -l -q /Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/functions/2Dplots_Saver/TwoD_profileX_pol_fitter.C\("+"'"+'"'+HistROOT_PATH_2D+'"'+"'"+"\)"
+os.system(twoD_profile_pol_save)
+os.system("mkdir 2D_profileX_pols")
+os.system("mv *profileX_pol_2D.pdf 2D_profileX_pols")
 
 
 sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/functions/rootHist_TXT/func")
@@ -96,8 +102,8 @@ for ij in range(len(TXT_FILE_LIST)):
     Sample_Variance(TXT_FILE_LIST[ij], TXT_FILE_LIST_largeBin[ij])
 gBenchmark.Show("All in One")
 
-os.system("rm -rf ROOT_plots")
-os.system("rm -rf ROOT_hist_texts")
+#os.system("rm -rf ROOT_plots")
+#os.system("rm -rf ROOT_hist_texts")
 os.system("mkdir ROOT_plots")
 os.system("mkdir ROOT_hist_texts")
 os.system("mv *py.pdf python_plots")

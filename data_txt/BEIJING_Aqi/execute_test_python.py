@@ -41,11 +41,12 @@ for ij in range(len(TXT_FILE_LIST)):
     t_distribution(TXT_FILE_LIST[ij],TXT_FILE_LIST_largeBin[ij], Show_T=True, Show_sample=True, Show_Gaus=True)
     Sample_Variance(TXT_FILE_LIST[ij], TXT_FILE_LIST_largeBin[ij])
 
-os.system("rm -rf python_plots")
-os.system("rm -rf python_hist_texts")
+#os.system("rm -rf python_plots")
+#os.system("rm -rf python_hist_texts")
 os.system("mkdir python_plots")
 os.system("mkdir python_hist_texts")
 os.system("mv *py.pdf python_plots")
+os.system("mv *.pdf python_plots")
 os.system("mv *py.txt python_hist_texts")
 
 
