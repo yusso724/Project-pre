@@ -57,8 +57,9 @@ HistROOT_PATH_2D = CONVERT_WORKING2D(NEW_Tree_PATH,"")
 twoD_plot_save = "root -l -q /Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/functions/2Dplots_Saver/TwoD_Plot_Saver_default.C\("+"'"+'"'+HistROOT_PATH_2D+'"'+"'"+"\)"
 os.system(twoD_plot_save)
 os.system("mkdir 2D_defalut")
+os.system("mkdir 2D_colz")
 os.system("mv *defalut_2D.pdf 2D_defalut")
-
+os.system("mv *colz_2D.pdf 2D_colz")
 
 
 
