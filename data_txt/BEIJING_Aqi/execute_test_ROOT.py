@@ -4,16 +4,9 @@ gBenchmark.Start("All in One")
 import sys
 import os
 
-#INfile = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/tranfer_test/data/concrete.txt"
-#INfile = "/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/BINANCE_DATA.txt"
-#INfile = "/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/BBINA.txt"
-#INfile = "data/soomin.txt"
-#INfile = "data/ZRXBTC_1T.txt"
-#INfile = "data/ZRXBTC_5T.txt"
-#INfile = "data/sh600000.txt"
-#INfile = "data/tea_newyork/TEA_ALL.txt"
-#INfile = "Aqi_Beijing_day.txt"
 INfile = "carbon_copied_data/Aqi_Beijing_day.txt"
+BIN_Num_2D = 20
+
 sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/func")
 from d1_remake_txt import MakeTXT
 Infile = MakeTXT(INfile)
@@ -23,13 +16,7 @@ from Raw_text_to_Tree_root import Raw_text_to_Tree_root
 To_Tree = Raw_text_to_Tree_root(Infile,".")
 
 
-#To_Tree = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/root_generator/tree/root2_tree.root"
-#To_Tree = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/root_generator/tree/root3_tree.root"
-#To_Tree = "/Users/leejunho/Desktop/git/My_git/My_temp/n43_VBSWW_LL_TT_TL_lhe/madspin_root_generator/output_madspin_VBSWW.root"
 #To_Tree = "/Users/leejunho/Desktop/git/My_git/My_temp/n43_VBSWW_LL_TT_TL_lhe/madspin_root_generator/output_madspin_VBSWW_1_small.root"
-#To_Tree = "/Users/leejunho/Desktop/git/My_git/My_temp/n43_VBSWW_LL_TT_TL_lhe/madspin_root_generator/output_madspin_VBSWW_WlepAngle.root"
-#To_Tree = "/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/root_generator/tree/root3_tree.root"
-#To_Tree = "/Users/leejunho/Desktop/git/My_git/My_temp/n44_MG_DECAY/output_VBSWW_Wplus_WlepAngle.root"
 
 print("\n********************************************************************")
 print("** THIS is before cut applied **")
@@ -53,7 +40,7 @@ from Tree_to_D1H_Convert import CONVERT_WORKING
 from Tree_to_D1H_Convert_largeBin import CONVERT_WORKING_largeBin
 HistROOT_PATH = CONVERT_WORKING(NEW_Tree_PATH,"")
 HistROOT_PATH_largeBin = CONVERT_WORKING_largeBin(NEW_Tree_PATH,"")
-HistROOT_PATH_2D = CONVERT_WORKING2D(NEW_Tree_PATH,"")
+HistROOT_PATH_2D = CONVERT_WORKING2D(NEW_Tree_PATH,"",NBins=BIN_Num_2D)
 twoD_plot_save = "root -l -q /Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/functions/2Dplots_Saver/TwoD_Plot_Saver_default.C\("+"'"+'"'+HistROOT_PATH_2D+'"'+"'"+"\)"
 os.system(twoD_plot_save)
 os.system("mkdir 2D_defalut")

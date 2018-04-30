@@ -35,7 +35,7 @@ for ij in range(len(TXT_FILE_LIST)):
 #    STD = c1_standard_deviation(TXT_FILE_LIST[ij]);   print("STD :",STD)
 #    print("\n")
     Basic_histo(TXT_FILE_LIST[ij], TXT_FILE_LIST_largeBin[ij])
-    Fit_Poisson_histo(TXT_FILE_LIST[ij], TXT_FILE_LIST_largeBin[ij])
+#    Fit_Poisson_histo(TXT_FILE_LIST[ij], TXT_FILE_LIST_largeBin[ij])
     Fit_Sample_Gaus_histo(TXT_FILE_LIST[ij], TXT_FILE_LIST_largeBin[ij], exp_Mean_error=10)
 #    t_distribution(TXT_FILE_LIST[ij], TXT_FILE_LIST_largeBin[ij], Show_T=True, Show_sample=True, Show_Gaus=False)
     t_distribution(TXT_FILE_LIST[ij],TXT_FILE_LIST_largeBin[ij], Show_T=True, Show_sample=True, Show_Gaus=True)
