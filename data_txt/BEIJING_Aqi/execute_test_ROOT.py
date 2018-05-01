@@ -7,7 +7,7 @@ import os
 INfile = "carbon_copied_data/Aqi_Beijing_day.txt"
 BIN_Num_2D = 20
 YBIN_Num_2D = 20
-oneD_NBins = 15
+oneD_NBins = 100
 
 sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/func")
 from d1_remake_txt import MakeTXT
@@ -33,6 +33,7 @@ Tree_to_D1H_Components(To_Tree)
 
 
 from Tree_to_D1H_CutnGenerate_BEIJING_AIR import REGENERATE_TREE_WITH_CUT
+#from Tree_to_D1H_CutnGenerate import REGENERATE_TREE_WITH_CUT
 NEW_Tree_PATH = REGENERATE_TREE_WITH_CUT(To_Tree,".")
 
 
