@@ -6,6 +6,8 @@ import os
 
 INfile = "carbon_copied_data/Aqi_Beijing_day.txt"
 BIN_Num_2D = 20
+YBIN_Num_2D = 20
+oneD_NBins = 15
 
 sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/func")
 from d1_remake_txt import MakeTXT
@@ -38,9 +40,9 @@ NEW_Tree_PATH = REGENERATE_TREE_WITH_CUT(To_Tree,".")
 from Tree_to_D2H_Convert import CONVERT_WORKING2D
 from Tree_to_D1H_Convert import CONVERT_WORKING
 from Tree_to_D1H_Convert_largeBin import CONVERT_WORKING_largeBin
-HistROOT_PATH = CONVERT_WORKING(NEW_Tree_PATH,"")
+HistROOT_PATH = CONVERT_WORKING(NEW_Tree_PATH,"", D1_NBins=oneD_NBins)
 HistROOT_PATH_largeBin = CONVERT_WORKING_largeBin(NEW_Tree_PATH,"")
-HistROOT_PATH_2D = CONVERT_WORKING2D(NEW_Tree_PATH,"",NBins=BIN_Num_2D)
+HistROOT_PATH_2D = CONVERT_WORKING2D(NEW_Tree_PATH,"",NBins=BIN_Num_2D,NYBins=YBIN_Num_2D)
 twoD_plot_save = "root -l -q /Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/functions/2Dplots_Saver/TwoD_Plot_Saver_default.C\("+"'"+'"'+HistROOT_PATH_2D+'"'+"'"+"\)"
 os.system(twoD_plot_save)
 os.system("mkdir 2D_defalut")
