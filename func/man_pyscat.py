@@ -66,7 +66,7 @@ def man_py_scatter(filename):
             plt.text(0.5,0.9,x_label, ha='center', va='center',transform = a.transAxes)
             #plt.ylabel(y_label)
         #plt.title('y = '+y_label+'_'+'x_others')
-        plt.savefig('../data_txt/BEIJING_Aqi/'+y_label+'_'+'others'+'.pdf')
+        plt.savefig(y_label+'_'+'others'+'.pdf')
         plt.close('all')
   #      x_list_int.clear()
    #     x_list.clear()

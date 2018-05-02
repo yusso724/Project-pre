@@ -1,5 +1,7 @@
 #Author : JUNHO LEE
 #According to central limit theorem, even though distribution of population does not belongs to Gaussian, distribution of the sample mean is gaussian, if event number bigger than 30
+import matplotlib
+matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
 import numpy as np
 import sys,os

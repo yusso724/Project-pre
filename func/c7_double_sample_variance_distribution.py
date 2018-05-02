@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use('TkAgg')
 from scipy.stats import f as F_TEST
 import matplotlib.pyplot as plt
 import numpy as np

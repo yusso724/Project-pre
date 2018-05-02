@@ -1,4 +1,6 @@
 #Author : JUNHO LEE
+import matplotlib
+matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
 import numpy
 import sys,os
