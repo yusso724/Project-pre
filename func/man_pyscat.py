@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 import math
 
 def man_py_scatter(filename):
-    sys.path.append("../../func")
+  #  sys.path.append("../../func")
     from d0_makelist_column import MakeList_column
-
+    path = '../data_txt/BEIJING_Aqi/'
     if (filename[0] == "/"):
         filename = filename
     elif ((filename[0] == "C") & (filename[1] == ":")):
@@ -64,7 +64,7 @@ def man_py_scatter(filename):
             plt.text(0.5,0.9,x_label, ha='center', va='center',transform = a.transAxes)
             #plt.ylabel(y_label)
         #plt.title('y = '+y_label+'_'+'x_others')
-        plt.savefig(y_label+'_'+'others'+'.pdf')
+        plt.savefig('../data_txt/BEIJING_Aqi/'+y_label+'_'+'others'+'.pdf')
         plt.close('all')
   #      x_list_int.clear()
    #     x_list.clear()
@@ -73,12 +73,10 @@ def man_py_scatter(filename):
 
 
 def main():
-    file1 = "Aqi_Beijing_Holi.txt"
+    file1 = "../data_txt/BEIJING_Aqi/Aqi_Beijing_Holi.txt"
     man_py_scatter(file1)
             # print("over!",i,j,x,x_len)
 
 
 if __name__=="__main__":
     main()
-
-#range는 최소에서 0.05 최고에서 0.05
