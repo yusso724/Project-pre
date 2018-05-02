@@ -1,6 +1,7 @@
 import sys
 import os
 import matplotlib.pyplot as plt
+import math
 
 def man_py_scatter(filename):
     sys.path.append("../../func")
@@ -46,6 +47,7 @@ def man_py_scatter(filename):
 
     #print(len(y_list_int))
         plt.figure(10)
+        row_n = math.ceil(math.sqrt(x_len-1))
         for j in range(1,x_len):
             x_list_int = []
             x_list = []
@@ -53,7 +55,8 @@ def man_py_scatter(filename):
             x_label = x_list[0]
             for k in range(1,len(x_list)):
                 x_list_int.append(float(x_list[k]))
-            num = 330+j
+            num = row_n*100+row_n*10+j
+
             a = plt.subplot(num)
             plt.scatter(x_list_int, y_list_int, s=size, c='black', marker='o', alpha=0.5, label='C1')
 
@@ -67,20 +70,12 @@ def man_py_scatter(filename):
    #     x_list.clear()
    # y_list_int.clear()
    # y_list.clear()
+
+
 def main():
     file1 = "Aqi_Beijing_Holi.txt"
     man_py_scatter(file1)
-#print("over!",i,j,x,x_len)
-
-'''
-aqi = list_c[1]
-list_c.pop(0)
-print(list_c)
-aqi.pop(0)
-#print(aqi)
-
-'''
-
+            # print("over!",i,j,x,x_len)
 
 
 if __name__=="__main__":
