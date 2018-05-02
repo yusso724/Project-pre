@@ -46,19 +46,21 @@ HistROOT_PATH_largeBin = CONVERT_WORKING_largeBin(NEW_Tree_PATH,"")
 HistROOT_PATH_2D = CONVERT_WORKING2D(NEW_Tree_PATH,"",NBins=BIN_Num_2D,NYBins=YBIN_Num_2D)
 twoD_plot_save = "root -l -q /Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/functions/2Dplots_Saver/TwoD_Plot_Saver_default.C\("+"'"+'"'+HistROOT_PATH_2D+'"'+"'"+"\)"
 os.system(twoD_plot_save)
-os.system("mkdir 2D_defalut")
-os.system("mkdir 2D_colz")
-os.system("mkdir 2D_surf3")
-os.system("mv *defalut_2D.pdf 2D_defalut")
-os.system("mv *colz_2D.pdf 2D_colz")
-os.system("mv *surf3_2D.pdf 2D_surf3")
+os.system("mkdir ROOT_2D_defalut")
+os.system("mkdir ROOT_2D_colz")
+os.system("mkdir ROOT_2D_surf3")
+os.system("mv *defalut_2D.pdf ROOT_2D_defalut")
+os.system("mv *colz_2D.pdf ROOT_2D_colz")
+os.system("mv *surf3_2D.pdf ROOT_2D_surf3")
 
 twoD_profile_pol_save = "root -l -q /Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/functions/2Dplots_Saver/TwoD_profileX_pol_fitter.C\("+"'"+'"'+HistROOT_PATH_2D+'"'+"'"+"\)"
 os.system(twoD_profile_pol_save)
-os.system("mkdir 2D_profileX_pols")
-os.system("mv *profileX_pol_2D.pdf 2D_profileX_pols")
+os.system("mkdir ROOT_2D_profileX_pols")
+os.system("mv *profileX_pol_2D.pdf ROOT_2D_profileX_pols")
 
+gBenchmark.Show("All in One")
 
+'''
 sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/functions/rootHist_TXT/func")
 from D1H_rootHist_TXT_conversion import D1H_roothist_to_txt
 from D1H_rootHist_TXT_conversion_largeBin import D1H_roothist_to_txt_largeBin
@@ -100,3 +102,4 @@ os.system("mv *py.pdf python_plots")
 os.system("mv *.pdf ROOT_plots")
 os.system("mv *hist.txt ROOT_hist_texts")
 os.system("mv *hist_largeBin.txt ROOT_hist_texts")
+'''
