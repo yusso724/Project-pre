@@ -51,30 +51,37 @@ def man_py_scatter(filename):
     #print(len(y_list_int))
         plt.figure(10)
         #print(x_len)
-        row_n = math.ceil(math.sqrt(x_len))
-        for j in range(x_len):
-            x_list_int = []
-            x_list = []
-            x_list = list_c[j]
-            x_label = x_list[0]
-            for k in range(1,len(x_list)):
-                x_list_int.append(float(x_list[k]))
+        file_num = math.ceil(x_len/6)
+        for l in range(file_num):
+            posi = 0
+            if (l+1)*6 >= x_len:
+                max_num = x_len
+            else:
+                max_num = (l+1)*6
+            for j in range(l*6,max_num):
+                posi += 1
+                x_list_int = []
+                x_list = []
+                x_list = list_c[j]
+                x_label = x_list[0]
+                for k in range(1,len(x_list)):
+                    x_list_int.append(float(x_list[k]))
             #num = row_n*100+row_n*10+1+j
             #print(num)
-            r,p = stats.pearsonr(x_list_int,y_list_int)
-            r = float("%0.2f"%(r))
-            p = float("%0.3f" % (p))
-            a = plt.subplot(row_n,row_n,j+1)
-            plt.scatter(x_list_int, y_list_int, s=size, c='black', marker='o', alpha=0.5, label='C1')
+                r,p = stats.pearsonr(x_list_int,y_list_int)
+                r = float("%0.2f"%(r))
+                p = float("%0.3f" % (p))
+                a = plt.subplot(3,2,posi)
+                plt.scatter(x_list_int, y_list_int, s=size, c='black', marker='o', alpha=0.5, label='C1')
 
             #plt.xlabel(x_label)
-            plt.text(0.5,0.9,x_label, ha='center', va='center',transform = a.transAxes,fontsize = 8)
-            plt.text(0.65, 0.3, 'r='+ str(r), ha='left', va='center',color = 'red', transform=a.transAxes,fontsize = 8)
-            plt.text(0.65, 0.15, 'p='+ str(p), ha='left', va='center',color = 'red', transform=a.transAxes,fontsize = 8)
+                plt.text(0.5,0.9,x_label, ha='center', va='center',transform = a.transAxes,fontsize = 8)
+                plt.text(0.8, 0.2, 'r='+ str(r), ha='left', va='center',color = 'red', transform=a.transAxes,fontsize = 8)
+                plt.text(0.8, 0.1, 'p='+ str(p), ha='left', va='center',color = 'red', transform=a.transAxes,fontsize = 8)
             #plt.ylabel(y_label)
         #plt.title('y = '+y_label+'_'+'x_others')
-        plt.savefig(y_label+'_'+'others'+'.pdf')
-        plt.close('all')
+            plt.savefig(y_label+'_'+'others'+'('+str(l+1)+')'+'.pdf')
+            plt.close('all')
   #      x_list_int.clear()
    #     x_list.clear()
    # y_list_int.clear()
