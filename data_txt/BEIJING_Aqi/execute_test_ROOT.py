@@ -57,6 +57,8 @@ twoD_profile_pol_save = "root -l -q /Users/leejunho/Desktop/git/python3Env/group
 os.system(twoD_profile_pol_save)
 os.system("mkdir ROOT_2D_profileX_pols")
 os.system("mv *profileX_pol_2D.pdf ROOT_2D_profileX_pols")
+os.system("mkdir ROOT_files")
+os.system("mv *.root ROOT_files") 
 
 gBenchmark.Show("All in One")
 
