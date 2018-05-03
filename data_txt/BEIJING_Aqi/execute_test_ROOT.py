@@ -36,20 +36,23 @@ from Tree_to_D1H_CutnGenerate_BEIJING_AIR import REGENERATE_TREE_WITH_CUT
 #from Tree_to_D1H_CutnGenerate import REGENERATE_TREE_WITH_CUT
 NEW_Tree_PATH = REGENERATE_TREE_WITH_CUT(To_Tree,".")
 
-
+TGraph_2D_basic = "root -l -q /Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/functions/TGraph_saver/Tree_branches_to_vector.C\("+"'"+'"'+NEW_Tree_PATH+'"'+"'"+"\)"
+os.system(TGraph_2D_basic)
+os.system("mkdir ROOT_TGraph_basic")
+os.system("mv *basic_*.pdf ROOT_TGraph_basic")
 
 from Tree_to_D2H_Convert import CONVERT_WORKING2D
 from Tree_to_D1H_Convert import CONVERT_WORKING
-from Tree_to_D1H_Convert_largeBin import CONVERT_WORKING_largeBin
+#from Tree_to_D1H_Convert_largeBin import CONVERT_WORKING_largeBin
 HistROOT_PATH = CONVERT_WORKING(NEW_Tree_PATH,"", D1_NBins=oneD_NBins)
-HistROOT_PATH_largeBin = CONVERT_WORKING_largeBin(NEW_Tree_PATH,"")
+#HistROOT_PATH_largeBin = CONVERT_WORKING_largeBin(NEW_Tree_PATH,"")
 HistROOT_PATH_2D = CONVERT_WORKING2D(NEW_Tree_PATH,"",NBins=BIN_Num_2D,NYBins=YBIN_Num_2D)
 twoD_plot_save = "root -l -q /Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/functions/2Dplots_Saver/TwoD_Plot_Saver_default.C\("+"'"+'"'+HistROOT_PATH_2D+'"'+"'"+"\)"
 os.system(twoD_plot_save)
-os.system("mkdir ROOT_2D_defalut")
+#os.system("mkdir ROOT_2D_defalut")
 os.system("mkdir ROOT_2D_colz")
 os.system("mkdir ROOT_2D_surf3")
-os.system("mv *defalut_2D.pdf ROOT_2D_defalut")
+#os.system("mv *defalut_2D.pdf ROOT_2D_defalut")
 os.system("mv *colz_2D.pdf ROOT_2D_colz")
 os.system("mv *surf3_2D.pdf ROOT_2D_surf3")
 
@@ -61,7 +64,6 @@ os.system("mkdir ROOT_files")
 os.system("mv *.root ROOT_files") 
 
 gBenchmark.Show("All in One")
-
 '''
 sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/functions/rootHist_TXT/func")
 from D1H_rootHist_TXT_conversion import D1H_roothist_to_txt
