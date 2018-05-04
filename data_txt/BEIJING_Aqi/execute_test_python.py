@@ -14,7 +14,7 @@ from RAW_to_HIST_txt_largeBin import Converting_largeBin
 from man_pyscat import man_py_scatter
 man_py_scatter(INfile)
 os.system("mkdir python_2D_scatter")
-os.system("mv *_others.pdf python_2D_scatter")
+os.system("mv *_others*.pdf python_2D_scatter")
 TXT_FILE_LIST = Converting(Infile,NBINS=BIN_Num)
 TXT_FILE_LIST_largeBin =  Converting_largeBin(Infile)
 
