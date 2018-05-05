@@ -26,7 +26,7 @@ if TH2D_transfer==1:
     TH2D_colz_surf3 = 1
     TH2D_profileX = 1
 
-PYTHON_HIST = 1  # Do not change(keep it to be 0), this need to be set as python3
+PYTHON_HIST = 1  
 
 sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/func")
 from d1_remake_txt import MakeTXT
