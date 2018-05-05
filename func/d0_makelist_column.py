@@ -10,8 +10,10 @@ def MakeList_column(filename):
     for j in range(len(Row_List[0])):
         Temp_List=[]
         for i in range(len(Row_List)):
+#            print(i)
             Temp_List.append(Row_List[i][j])
         Col_List.append(Temp_List)
+#        print(Col_List)
     return Col_List
 
 def main():

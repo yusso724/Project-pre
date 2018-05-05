@@ -9,11 +9,13 @@ os.system("rm -rf ROOT_2D_colz")
 os.system("rm -rf ROOT_2D_surf3")
 os.system("rm -rf ROOT_2D_profileX_pols")
 os.system("rm -rf ROOT_files")
+os.system("rm -rf ROOT_python_plots")
+os.system("rm -rf ROOT_python_hist_texts")
 
 INfile = "carbon_copied_data/Aqi_Beijing_day.txt"
-BIN_Num_2D = 10    # X bin number of 2D
-YBIN_Num_2D = 10   # Y bin number of 2D
-oneD_NBins = 100
+BIN_Num_2D = 30    # X bin number of 2D
+YBIN_Num_2D = 30   # Y bin number of 2D
+oneD_NBins = 20
 
 #### option to draw ###
 N_sigma = 5    ## Skiming of txt outof specific sigma region
@@ -24,7 +26,7 @@ if TH2D_transfer==1:
     TH2D_colz_surf3 = 1
     TH2D_profileX = 1
 
-PYTHON_HIST = 0  # Do not change, this need to be set as python3
+PYTHON_HIST = 1  # Do not change(keep it to be 0), this need to be set as python3
 
 sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/func")
 from d1_remake_txt import MakeTXT
@@ -110,12 +112,12 @@ elif (PYTHON_HIST==1) & (TH1D_transfer==1):
 
     sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/func")
     from c1_basic_statistic import *
-    from c2_basic_histo_plotting import Basic_histo
+    from c2_basic_histo_plotting_ROOT import Basic_histo
     #from c2_basic_histo_plotting import Basic_histo
-    from c4_Fit_Poisson_histo_plotting import Fit_Poisson_histo
-    from c5_single_sample_mean_Zdistribution import Fit_Sample_Gaus_histo
-    from c5_single_sample_mean_Tdistribution import t_distribution
-    from c7_single_sample_variance_distribution import Sample_Variance
+    from c4_Fit_Poisson_histo_plotting_ROOT import Fit_Poisson_histo
+    from c5_single_sample_mean_Zdistribution_ROOT import Fit_Sample_Gaus_histo
+    from c5_single_sample_mean_Tdistribution_ROOT import t_distribution
+    from c7_single_sample_variance_distribution_ROOT import Sample_Variance
     #for Input_file in TXT_FILE_LIST:
     print("this")
     for ij in range(len(TXT_FILE_LIST)):
@@ -139,7 +141,7 @@ elif (PYTHON_HIST==1) & (TH1D_transfer==1):
     os.system("rm -rf ROOT_python_hist_texts")
     os.system("mkdir ROOT_python_plots")
     os.system("mkdir ROOT_python_hist_texts")
-    os.system("mv *py.pdf ROOT_python_plots")
+    os.system("mv *.pdf ROOT_python_plots")
     os.system("mv *hist.txt ROOT_python_hist_texts")
     os.system("mv *hist_largeBin.txt ROOT_python_hist_texts")
 
