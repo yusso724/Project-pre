@@ -1,3 +1,5 @@
+#Author Junho Lee
+#This is for removing "outliers"
 import os, sys, math
 from d0_makelist import MakeList
 from d0_makelist_column import MakeList_column
