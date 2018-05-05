@@ -11,13 +11,13 @@ os.system("rm -rf ROOT_2D_profileX_pols")
 os.system("rm -rf ROOT_files")
 
 INfile = "carbon_copied_data/Aqi_Beijing_day.txt"
-BIN_Num_2D = 5    # X bin number of 2D
-YBIN_Num_2D = 20   # Y bin number of 2D
+BIN_Num_2D = 10    # X bin number of 2D
+YBIN_Num_2D = 10   # Y bin number of 2D
 oneD_NBins = 100
 
 #### option to draw ###
 N_sigma = 5    ## Skiming of txt outof specific sigma region
-TGraph_2d_basic = 1 ;   Marker_style = ",1";   poly19_fit =",0"
+TGraph_2d_basic = 1 ;   Marker_style = ",2";   poly19_fit =",0"
 TH1D_transfer = 1
 TH2D_transfer = 1
 if TH2D_transfer==1:
