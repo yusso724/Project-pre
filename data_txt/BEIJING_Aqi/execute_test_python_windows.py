@@ -8,7 +8,7 @@ sys.path.append("../../func")
 from d1_remake_txt import MakeTXT
 Infile = MakeTXT(INfile)
 
-sys.path.append("../../func")
+#sys.path.append("../../func")
 from RAW_to_HIST_txt import Converting
 from RAW_to_HIST_txt_largeBin import Converting_largeBin
 from man_pyscat import man_py_scatter
@@ -19,7 +19,7 @@ TXT_FILE_LIST = Converting(Infile,NBINS=BIN_Num)
 TXT_FILE_LIST_largeBin =  Converting_largeBin(Infile)
 
 #sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/func")
-sys.path.append("../../func")
+#sys.path.append("../../func")
 from c1_basic_statistic import *
 from c2_basic_histo_plotting import Basic_histo
 #from c2_basic_histo_plotting import Basic_histo
