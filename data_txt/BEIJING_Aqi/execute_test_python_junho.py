@@ -4,7 +4,8 @@ import os
 INfile = "Aqi_Beijing_Holi.txt"
 BIN_Num = 100
 
-sys.path.append("../../func")
+#sys.path.append("../../func")
+sys.path.append("C:/Users/skyblue1293/Desktop/group_study/Project-pre/func")
 from d1_remake_txt import MakeTXT
 Infile = MakeTXT(INfile)
 
