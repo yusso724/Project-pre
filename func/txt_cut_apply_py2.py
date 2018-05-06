@@ -36,24 +36,24 @@ def cut_apply(filename):
     #print(len(del_list))
     while 1:
 
-        index = input("what element do you want to cut?(if you don't want cut the raw data, please enter '-')")
+        index = raw_input("what element do you want to cut?(if you don't want cut the raw data, please enter '-')")
        # print(index)
         if index =='-':
             print("end!")
             break
            # print("wrong input!,please select number 0~9")
         x_list = list_c[int(index)]
-        min = input("input min-value of cut range (if you don't want to set the cutting min-value, please enter '-')")
+        min = raw_input("input min-value of cut range (if you don't want to set the cutting min-value, please enter '-')")
         try:
             min = float(min)
         except:
             min = -100000000
-        max = input("input max-value of cut range (if you don't want to set the cutting max-value, please enter '-')")
+        max = raw_input("input max-value of cut range (if you don't want to set the cutting max-value, please enter '-')")
         try:
             max = float(max)
         except:
             max = 100000000
-        one = input("input one exect value you want to cut (if you don't want, please enter '-')")
+        one = raw_input("input one exect value you want to cut (if you don't want, please enter '-')")
         try:
             one = float(one)
         except:

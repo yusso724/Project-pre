@@ -70,7 +70,7 @@ def N_sigma_skimming(filename, N_Of_Sigma=5):
 #    print(ttt)
 #    print(RE_ROW_LIST)
 
-    FN = infile.replace(".txt","_S.txt")
+    FN = infile.replace(".txt","S.txt")
     Of = open(FN,"w+")
     for i in range(len(RE_ROW_LIST)):
         for j in range(len(RE_ROW_LIST[i])):
