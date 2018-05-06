@@ -47,25 +47,25 @@ def ROW_COL(filename1, filename2):
 
 #    print(COL_LIST3)
 
-    COL_LIST4=[]
+    ROW_LIST4=[]
 
     for k in range(len(COL_LIST3[0])):
         gg=[]
         for m in range(len(COL_LIST3)):
             gg.append(COL_LIST3[m][k])
 
-        COL_LIST4.append(gg)
-#    print(COL_LIST4)
+        ROW_LIST4.append(gg)
+#    print(ROW_LIST4)
 
     NEWNAME = infile1.replace(".txt","_"+filename2_No_Txt)
     FN = NEWNAME+".txt"
     Of = open(FN,"w+")
-    for i in range(len(COL_LIST4)):
-        for j in range(len(COL_LIST4[i])):
-            Of.write("%s" %COL_LIST4[i][j])
-            if(j!=len(COL_LIST4[i])-1):
+    for i in range(len(ROW_LIST4)):
+        for j in range(len(ROW_LIST4[i])):
+            Of.write("%s" %ROW_LIST4[i][j])
+            if(j!=len(ROW_LIST4[i])-1):
                 Of.write(" ")
-            if(j==len(COL_LIST4[i])-1):
+            if(j==len(ROW_LIST4[i])-1):
                 Of.write("\n")
     Of.close()
 
@@ -76,7 +76,7 @@ def ROW_COL(filename1, filename2):
 def main():
 #    INFILE1 = "test1.txt"
 #    INFILE2 = "test2.txt"
-    INFILE1 = "/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/ALL_DATA/Aqi_Beijing_Weather.txt"
+    INFILE1 = "/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/ALL_DATA/OLD_180420_Aqi_Beijing_Weather.txt"
     INFILE2 = "/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/data_txt/ALL_DATA/FORMAT/WIND.txt"
     output = ROW_COL(INFILE1, INFILE2)
     print(output)
