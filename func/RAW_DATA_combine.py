@@ -14,13 +14,24 @@ def ROW_COL(infile1, infile2):
 
     print(COL_LIST3)
 
+    COL_LIST4=[]
+
+    for k in range(len(COL_LIST3[0])):
+        gg=[]
+        for m in range(len(COL_LIST3)):
+            gg.append(COL_LIST3[m][k])
+
+        COL_LIST4.append(gg)
+    print(COL_LIST4)
+
+
     Of = open("test_out.txt","w+")
-    for i in range(len(COL_LIST3)):
-        for j in range(len(COL_LIST3[i])):
-            Of.write("%s" %COL_LIST3[i][j])
-            if(j!=len(COL_LIST3[i])-1):
+    for i in range(len(COL_LIST4)):
+        for j in range(len(COL_LIST4[i])):
+            Of.write("%s" %COL_LIST4[i][j])
+            if(j!=len(COL_LIST4[i])-1):
                 Of.write(" ")
-            if(j==len(COL_LIST3[i])-1):
+            if(j==len(COL_LIST4[i])-1):
                 Of.write("\n")
     Of.close()
     return Of
