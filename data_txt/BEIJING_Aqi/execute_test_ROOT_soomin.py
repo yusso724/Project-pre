@@ -8,10 +8,15 @@ INfile = "carbon_copied_data/Aqi_Beijing_day.txt"
 BIN_Num_2D = 20
 YBIN_Num_2D = 20
 oneD_NBins = 100
+N_sigma = 5    ## Skiming of txt outof specific sigma region
 
 sys.path.append("/home/soomin/Desktop/group_study/Project-pre/func")
-from d1_remake_txt import MakeTXT
-Infile = MakeTXT(INfile)
+from d1_remake_txt import MakeiTXT
+from txt_cut_apply import cut_apply
+from d0_Nsigma_skiming import N_sigma_skimming 
+INFile = MakeTXT(INfile)
+Infile_1 = cut_apply(INFile)                                        |                                                                      
+Infile = N_sigma_skimming(Infile_1, N_sigma) 
 
 sys.path.append("/home/soomin/Desktop/group_study/fruit_team/ROOT/Project/functions/rawTxt_Tree_root")
 from Raw_text_to_Tree_root import Raw_text_to_Tree_root

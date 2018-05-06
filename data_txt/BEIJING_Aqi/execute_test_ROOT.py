@@ -30,10 +30,11 @@ PYTHON_HIST = 1
 
 sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/func")
 from d1_remake_txt import MakeTXT
+from txt_cut_apply_py2 import cut_apply
 from d0_Nsigma_skiming import N_sigma_skimming
-INFILE = MakeTXT(INfile)
-Infile = N_sigma_skimming(INFILE, N_sigma)
-
+INFile = MakeTXT(INfile)
+Infile_1 = cut_apply(INFile)
+Infile = N_sigma_skimming(Infile_1, N_sigma)
 
 sys.path.append("/Users/leejunho/Desktop/git/python3Env/group_study/fruit_team/ROOT/Project/functions/rawTxt_Tree_root")
 from Raw_text_to_Tree_root import Raw_text_to_Tree_root
