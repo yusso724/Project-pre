@@ -5,9 +5,9 @@ INfile = "Aqi_Beijing_Holi.txt"
 BIN_Num = 100
 N_sigma = 4    ## Skiming of txt outof specific sigma region
 
-os.system("rd /s /q python_2D_scatter")                             |                                                                      
-os.system("rd /s /q python_plots")                                  |  #sys.path.append("../../func")                                      
-os.system("rd /s /s python_hist_texts") 
+os.system("rd /s /q python_2D_scatter")
+os.system("rd /s /q python_plots")
+os.system("rd /s /q python_hist_texts")
 #sys.path.append("../../func")
 sys.path.append("C:/Users/skyblue1293/Desktop/group_study/Project-pre/func")
 from d1_remake_txt import MakeTXT

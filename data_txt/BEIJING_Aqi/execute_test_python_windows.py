@@ -14,7 +14,7 @@ from d1_remake_txt import MakeTXT
 from txt_cut_apply import cut_apply
 from d0_Nsigma_skiming import N_sigma_skimming
 INFile = MakeTXT(INfile)
-Infile_1 = cut_apply(INFile)                                        |                                                                      
+Infile_1 = cut_apply(INFile)
 Infile = N_sigma_skimming(Infile_1, N_sigma)
 
 #sys.path.append("../../func")
