@@ -85,13 +85,15 @@ def cut_apply(filename):
             del(del_list[i])
         else:
             i+=1
-    FN = filename.replace(".txt", "_cutted.txt")
+    FN = filename.replace(".txt", "_C.txt")
    # FN = path + FN
    # print(FN)
     Of = open(FN, "w+")
     for i in range(len(list_a)):
         for j in range(len(list_a[i])):
-            Of.write(str(list_a[i][j])+" ")
+            Of.write(str(list_a[i][j]))
+            if(j != len(list_a[i])-1):
+                Of.write(" ")
         Of.write("\n")
     Of.close()
    # os.system("move *_cutted.pdf "+ path)
