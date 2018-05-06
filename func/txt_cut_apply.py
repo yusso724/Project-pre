@@ -85,7 +85,9 @@ def cut_apply(filename):
    # print(FN)
     Of = open(FN, "w+")
     for i in range(len(list_a)):
-       Of.write(str(list_a[i])+" \n")
+        for j in range(len(list_a[i])):
+            Of.write(str(list_a[i][j])+" ")
+        Of.write("\n")
     Of.close()
    # os.system("move *_cutted.pdf "+ path)
     return FN
