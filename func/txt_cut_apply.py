@@ -47,12 +47,17 @@ def cut_apply(filename):
         try:
             min = float(min)
         except:
-            min = -100000
+            min = -100000000
         max = input("input max-value of cut range (if you don't want to set the cutting max-value, please enter '-')")
         try:
             max = float(max)
         except:
-            max = 100000
+            max = 100000000
+        one = input("input one exect value you want to cut (if you don't want, please enter '-')")
+        try:
+            one = float(one)
+        except:
+            one = 100000000
 #        del(list_a[0])
  #       print(list_a)
        # print(len(list_a))
@@ -61,7 +66,7 @@ def cut_apply(filename):
         while 1:
             if j >= len(x_list):
                 break
-            if float(x_list[j])<= float(min) or float(x_list[j]) >= float(max):
+            if float(x_list[j])<= min or float(x_list[j]) >= max or float(x_list[j])==one:
                 #print(j)
                 del_list[j] = 1
                 j +=1
@@ -85,7 +90,9 @@ def cut_apply(filename):
    # print(FN)
     Of = open(FN, "w+")
     for i in range(len(list_a)):
-       Of.write(str(list_a[i])+" \n")
+        for j in range(len(list_a[i])):
+            Of.write(str(list_a[i][j])+" ")
+        Of.write("\n")
     Of.close()
    # os.system("move *_cutted.pdf "+ path)
     return FN
