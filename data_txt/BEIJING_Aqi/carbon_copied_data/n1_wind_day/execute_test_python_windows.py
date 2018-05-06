@@ -10,7 +10,7 @@ os.system("rd /s /q python_2D_scatter")
 os.system("rd /s /q python_plots")
 os.system("rd /s /s python_hist_texts")
 
-sys.path.append("../../func")
+sys.path.append("../../../../func")
 from d1_remake_txt import MakeTXT
 from txt_cut_apply import cut_apply
 from d0_Nsigma_skiming import N_sigma_skimming
