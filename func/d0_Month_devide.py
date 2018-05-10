@@ -7,6 +7,7 @@ from d0_makelist_column import MakeList_column
 def Month_divide(filename):
     FILE = read_file_name(filename)
     infile1 = FILE[2]
+    OUTPUT_PATH = FILE[3]+FILE[0]
     COL_LIST1 = MakeList_column(infile1)
 
     #print(COL_LIST1)
@@ -31,7 +32,8 @@ def Month_divide(filename):
     #    aa.append(M_LIST[a])
         if a>1 and (float(M_LIST[a][0])-float(M_LIST[a-1][0]))>1:
             #print(bb)
-            FN="month"+str(int(M_LIST[a-1][0])//100)+".txt"
+            FN="M"+str(int(M_LIST[a-1][0])//100)+".txt"
+            FN = OUTPUT_PATH+"_"+FN
             RETURN_LIST.append(FN)
             Of = open(FN,"w+")
             for i in range(len(bb)):
@@ -49,7 +51,8 @@ def Month_divide(filename):
     #    print(bb)
     #print(bb)    
     #print(cc)
-    FN="month"+str(int(cc[1][0])//100)+".txt"
+    FN="M"+str(int(cc[1][0])//100)+".txt"
+    FN = OUTPUT_PATH+"_"+FN
     Of = open(FN,"w+")
     for i in range(len(cc)):
         for j in range(len(cc[i])):
