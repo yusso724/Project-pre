@@ -24,6 +24,7 @@ def Month_divide(filename):
 
     #print(M_LIST)
 
+    RETURN_LIST = []
     bb = []
     for a in range(len(M_LIST)):
     #    aa=[]
@@ -31,6 +32,7 @@ def Month_divide(filename):
         if a>1 and (float(M_LIST[a][0])-float(M_LIST[a-1][0]))>1:
             #print(bb)
             FN="month"+str(int(M_LIST[a-1][0])//100)+".txt"
+            RETURN_LIST.append(FN)
             Of = open(FN,"w+")
             for i in range(len(bb)):
                 for j in range(len(bb[i])):
@@ -57,13 +59,14 @@ def Month_divide(filename):
             if(j==len(cc[i])-1):
                 Of.write("\n")
     Of.close()
-
+    RETURN_LIST.append(FN)
+    return RETURN_LIST
 
 
 def main():
-    inputfile = "/home/soomin/Desktop/group_study/Project-pre/data_txt/BEIJING_Aqi/carbon_copied_data/n0_basic_day/Aqi_Beijing_Holi.txt"
-    Month_divide(inputfile)
-
+    inputfile = "../data_txt/BEIJING_Aqi/carbon_copied_data/n0_basic_day/Aqi_Beijing_Holi.txt"
+    FileNameList = Month_divide(inputfile)
+    print(FileNameList)
 
 if __name__ =="__main__":
     main()
