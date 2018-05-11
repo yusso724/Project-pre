@@ -6,6 +6,8 @@ from d0_makelist_column import *
 def show_branch(filename1):
     if(filename1[0]=="/"):
         filename1 = filename1
+    elif(filename1[0] == '~'):
+        filename1 = filename1.replace("~",os.environ['HOME'])
     elif((filename1[0]=="C")&(filename1[1]==":")):
         filename1 = filename1
     else:
@@ -32,7 +34,9 @@ def show_branch(filename1):
     #print("Please input branch name you want to extract")
     List_c = []
 
+    print("Please input Branch Name(not branch number)!")
     for i in range(len(RawList[0])):
+        print("Branch Name (Press 'q' to stop slecting): ", end='')
         Branch_name = input()
         if Branch_name in RawList[0]:
             index_num = 0
@@ -49,7 +53,7 @@ def show_branch(filename1):
         elif Branch_name == "q":
             break
 
-    FN = infile1.replace(".txt", "_picked.txt")
+    FN = infile1.replace(".txt", "_P.txt")
     Of = open(FN, "w+")
     for i in range(len(RawList)):
         for j in range(len(List_c)):
