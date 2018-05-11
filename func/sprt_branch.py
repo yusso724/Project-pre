@@ -22,31 +22,42 @@ def show_branch(filename1):
 
     RawList = MakeList(infile1)
     RawList_c = MakeList_column(infile1)
+    num = 1
 
-#    for j in RawList[0]:
-#        print(j,"",end="")
-
-#    print("")
+    print("Which branch do you want to extract? (Press 'q' to stop slecting)")
+    for j in RawList[0]:
+        print(num,":",j,"",end="\n")
+        num = num + 1
 
     #print("Please input branch name you want to extract")
-    Branch  = input()
     List_c = []
-    if Branch in RawList[0]:
-        for q in range(len(RawList_c)):
-            if Branch == RawList_c[q][0]:
-                List_c = RawList_c[q]
-    else:
-        return show_branch(infile1)
 
-    print(List_c)
+    for i in range(len(RawList[0])):
+        Branch_name = input()
+        if Branch_name in RawList[0]:
+            index_num = 0
+            for j in RawList[0]:
+                if j == Branch_name:
+                    List_c.append(RawList_c[index_num])
+                    #print(List_c)
+                    break
+                else:
+                    index_num = index_num + 1
+                    #print(index_num)
+        elif Branch_name not in RawList[0] and Branch_name != "q":
+            print("There are no such branches!")
+        elif Branch_name == "q":
+            break
 
     FN = infile1.replace(".txt", "_picked.txt")
     Of = open(FN, "w+")
-    for i in range(len(List_c)):
-        Of.write(str(List_c[i]))
-        Of.write("\n")
-        if i == len(List_c) - 1:
-            break
+    for i in range(len(RawList)):
+        for j in range(len(List_c)):
+            Of.write("%s" %List_c[j][i])
+            if(j!=len(List_c)-1):
+                Of.write(" ")
+            if(j==len(List_c)-1):
+                Of.write("\n")
     Of.close()
     return FN
 
