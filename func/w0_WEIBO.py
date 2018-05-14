@@ -173,16 +173,18 @@ class WEIBO:
         finished =0
         print("        ======================================================================")
         print "        ACCESSING Web page: ", self.webpage
-        TT = 0
+        TT = -1
+        
         while finished == 0:
+            self.ROBOT()
             TT = TT + 1
             self.driver1.set_page_load_timeout(20+TT*10)
-            #self.ROBOT()
+            self.driver1.implicitly_wait(20+TT*10)
             try:
                 time.sleep(3)
                 self.driver1.get(self.webpage)
                 TEMP2 = 1
-                WebDriverWait(self.driver1, 20+TT*10).until(EC.presence_of_element_located((By.CSS_SELECTOR,".red")))
+                WebDriverWait(self.driver1, 20+TT*10).until(EC.presence_of_element_located((By.CSS_SELECTOR,".red")))   #|(By.CSS_SELECTOR,".W_btn_a.btn_32px"))) 
                 TEMP2 = 2
 #                time.sleep(1)
                 WebWait=0
@@ -190,7 +192,7 @@ class WEIBO:
 #            finished = 1
                     try:
                         print("        Successfully Access to webpage. Locating keywords...")
-                        WebDriverWait(self.driver1, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR,".red")))   # (By.ID, ".red")))
+#                        WebDriverWait(self.driver1, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR,".red")))   # (By.ID, ".red")))
                         print("        Succeed on accessing web page")
                         WebWait = 1
                         finished = 1
@@ -201,7 +203,6 @@ class WEIBO:
 #                time.sleep(10)
 #                finished = 1
                     except:
-                        self.ROBOT()
                         print("        Seleninum WebDriver 'get' not returing... Refreshing on every 4rd time...")
                         TEMP1 = TEMP1+1
                         if(TEMP1%4==0):
@@ -309,9 +310,13 @@ class WEIBO:
         ROBOT = 0
         print("                ======================================================================")
         print("                This is ROBOT TEST...")
+        rbTT = -1
         while ROBOT == 0:
+            rbTT = rbTT + 1
             try:
 #                time.sleep(1)
+                self.driver1.set_page_load_timeout(2+rbTT*2)
+                self.driver1.implicitly_wait(2+rbTT*2)
                 tt2 = self.driver1.find_elements_by_css_selector('.code_tit')
 #                print(" [NEED YOUR HELP] -  Unfortunately, you need to prove that your are not a ROBOT on Web")
                 ROBOT=1
