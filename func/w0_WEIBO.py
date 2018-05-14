@@ -178,8 +178,8 @@ class WEIBO:
         while finished == 0:
             self.ROBOT()
             TT = TT + 1
-            self.driver1.set_page_load_timeout(20+TT*10)
-            self.driver1.implicitly_wait(20+TT*10)
+            self.driver1.set_page_load_timeout(5+TT*10)
+            self.driver1.implicitly_wait(5+TT*10)
             try:
                 time.sleep(3)
                 self.driver1.get(self.webpage)
