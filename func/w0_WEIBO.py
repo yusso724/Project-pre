@@ -11,12 +11,16 @@ from selenium.common.exceptions import TimeoutException
 class WEIBO:
 
     def __init__(self):
+        self.COUNT = 0
         pass
 
-    def AWAKE_BROWSER(self):
-        self.driver1 = webdriver.Chrome()
+    def AWAKE_BROWSER(self, filename):
+        self.FILENAME = filename
+#        self.driver1 = webdriver.PhantomJS()
+#        self.driver1  = webdriver.Chrome()
+        self.driver1 = webdriver.Firefox()
         self.driver1.set_page_load_timeout(15)
-        self.driver1.implicitly_wait(10)
+        self.driver1.implicitly_wait(20)
         time.sleep(3)
         print("======================================================================")
         print("NEW Web Browser is Opened")
@@ -31,24 +35,30 @@ class WEIBO:
             print("    Try to ACCESS to WEIBO LOGIN Page...")
             try:
                 self.driver1.get("https://www.weibo.com/login.php")
+#                WebDriverWait(self.driver1, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR,".loginname")))
                 time.sleep(2.5)
                 finished = 1
+                pass
             except HTTPError:
                 print("        **ERROR**ERROR**ERROR**ERROR**ERROR**ERROR**ERROR**ERROR**ERROR**ERROR**ERROR**")
                 print("        HTTP ERROR, RETRYING...")
                 print("        **ERROR**ERROR**ERROR**ERROR**ERROR**ERROR**ERROR**ERROR**ERROR**ERROR**ERROR**")
+                pass
             except:
                 print("        ....RELOADING.... ....RELOADING.... ....RELOADING.... ....RELOADING....")
                 print("        ID login, Need to be reloaded, RELOADING...")
                 print("        ....RELOADING.... ....RELOADING.... ....RELOADING.... ....RELOADING....")
                 time.sleep(5)
+                pass
             print("    Accessed LOGIN Page!")
             print("    ======================================================================")
 
             self.driver1.find_element_by_id("loginname").clear()
             self.driver1.find_element_by_id("loginname").send_keys(ID)
             self.driver1.find_element_by_name("password").send_keys(PASSWD)
+            time.sleep(2)
             self.driver1.find_element_by_css_selector(".W_btn_a.btn_32px").click()
+            time.sleep(2)
 
             print "        Waiting for LOGIN Page Loading..."
 #            time.sleep(2)
@@ -70,6 +80,7 @@ class WEIBO:
         print("    Succeed with LOGIN!")
         print("    **** !! Please Make sure you are successfully logged in !! ****")
         print("    ======================================================================")
+        return
 
     def DATE_MAKER(self,START_YEAR,START_MONTH,START_DAY,INTERVAL=1):
         s_day = START_DAY
@@ -115,7 +126,7 @@ class WEIBO:
             e_month = e_month + 1
         else:
             pass
-
+        self.datelist = [s_year, s_month, s_day, e_year, e_month, e_day]
         return [s_year, s_month, s_day, e_year, e_month, e_day]
 
     def MAKE_DATE_STR(self,DATE_LIST_INPUT):
@@ -140,11 +151,11 @@ class WEIBO:
         startDATE = str_s_year + "-" + str_s_month + "-" + str_s_day
         endDATE   = str_e_year + "-" + str_e_month + "-" + str_e_day
         RE_DATE = startDATE + ":" + endDATE
-        return RE_DATE
+        return [startDATE,endDATE,RE_DATE] 
 
 
     def MAKE_WEIBO_URL(self, DATE_LIST_INPUT, KEYWORD = "%25E9%259B%25BE%25E9%259C%25BE", LOCAL_NUM=1, PAGE =1):
-        DATE = self.MAKE_DATE_STR(DATE_LIST_INPUT)
+        DATE = self.MAKE_DATE_STR(DATE_LIST_INPUT)[2]
         Add_str_weibo = "https://s.weibo.com/weibo/"
         Add_some_info = "&region=custom:11:"+ str(LOCAL_NUM) + "&typeall=1&suball=1&timescope=custom:"
         Add_page_info = "&page="
@@ -156,41 +167,84 @@ class WEIBO:
 
 
     def ACCESS_URL(self, WEB_PAGE):
+        filename = self.FILENAME
         TEMP1 = 0
+        TEMP2 = 0
         finished =0
         print("        ======================================================================")
         print "        ACCESSING Web page: ", self.webpage
+        TT = 0
         while finished == 0:
+            TT = TT + 1
+            self.driver1.set_page_load_timeout(20+TT*10)
             #self.ROBOT()
             try:
-                time.sleep(5)
-                self.driver1.get(WEB_PAGE)
-#                time.sleep(10)
-#                print("        Succeed on accessing web page")
-                finished = 1
-            except:
-                print("        Seleninum WebDriver 'get' not returing... I will refresh...")
-                time.sleep(5); TEMP1 = TEMP1+1
-                if(TEMP1%3==0):
+                time.sleep(3)
+                self.driver1.get(self.webpage)
+                TEMP2 = 1
+                WebDriverWait(self.driver1, 20+TT*10).until(EC.presence_of_element_located((By.CSS_SELECTOR,".red")))
+                TEMP2 = 2
+#                time.sleep(1)
+                WebWait=0
+                while WebWait==0:
+#            finished = 1
                     try:
-                        self.driver1.refresh()
+                        print("        Successfully Access to webpage. Locating keywords...")
+                        WebDriverWait(self.driver1, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR,".red")))   # (By.ID, ".red")))
+                        print("        Succeed on accessing web page")
+                        WebWait = 1
+                        finished = 1
+#            finally:
+#                print("        Succeed on accessing web page")
+#                finished = 1
+#                print("WebDriverWait doesn't match with anything...")
+#                time.sleep(10)
+#                finished = 1
                     except:
-                        print("            Refresh Error... let's try 'get' without refresh...")
-                if(TEMP1>10):
-                    self.ROBOT()
-                if(TEMP1 > 15):                    
-                    print("            Please REFRESH the web site by your self!!!")
-                    CONTINUE = "test"
-                    while ((CONTINUE != "c") & (CONTINUE != "C")):
-                        CONTINUE = raw_input("[NEED YOUR HELP] - After refresh website by yourself, input 'C' to continue : \n")
-        time.sleep(5)
+                        self.ROBOT()
+                        print("        Seleninum WebDriver 'get' not returing... Refreshing on every 4rd time...")
+                        TEMP1 = TEMP1+1
+                        if(TEMP1%4==0):
+                            print("        Refreshing the webpage...")
+                            self.driver1.refresh()
+                            time.sleep(3)
+            except TimeoutException:
+                print("        TimeOut Exception... let's do it again... (Check internet connection/status)")
+                if TEMP2 == 1:
+                    print("        There is no such website... Moving to another district"); break
+#            except:
+#                print("        There is no such website... Moving to another district")
+#                break
+#            finally:
+#                print("        Seleninum WebDriver 'get' not returing... Let's do again")
+#                time.sleep(5); TEMP1 = TEMP1+1
+#                    try:
+##                        self.driver1.refresh()
+#                    except:
+#                        print("            Refresh Error... let's try 'get' without refresh...")
+#                if(TEMP1>10):
+#                    self.ROBOT()
+#                if(TEMP1 > 15):                    
+#                    print("            Please REFRESH the web site by your self!!!")
+#                    CONTINUE = "test"
+#                    while ((CONTINUE != "c") & (CONTINUE != "C")):
+#                        CONTINUE = raw_input("[NEED YOUR HELP] - After refresh website by yourself, input 'C' to continue : \n")
+#        time.sleep(5)
+        LOCAL_NUM_WORD=0
+        if(TEMP2 != 1):
+            LOCAL_NUM_WORD = self.GREP_WORD(filename)
 
-        self.GREP_WORD()
         print("        ======================================================================")
         print("")
+        if(LOCAL_NUM_WORD<6):
+            return 0
+        else:
+            return 1
 
+    def GERP_WORD_to_zero(self):
+        self.COUNT = 0
 
-    def GREP_WORD(self):
+    def GREP_WORD(self, filename):
         TEXT_FLAG = 0
         GET_TEXT=0
         print("            ======================================================================")
@@ -203,6 +257,11 @@ class WEIBO:
 #                self.ROBOT()
                 print("            Successfully catched!")
                 time.sleep(3)
+                GET_TEXT=1
+#                for iii in range(len(tt1)):
+#                    print(tt1[iii].text)
+                    #s1 = (tt1[iii].text).encode('unicode-escape').decode('string_escape')
+                    #print(s1)
             except:
                 print("                Something went wrong... I will try again to catch.")
                 TEXT_FLAG = TEXT_FLAG+1            
@@ -210,11 +269,39 @@ class WEIBO:
                     self.ROBOT()
                 if(TEXT_FLAG>10):
                     self.ACCESS_URL(self.webpage)
-        print("WRITE INTO YOUR FILE!")
-
+#        print("WRITE INTO YOUR FILE!")
+        self.COUNT = self.COUNT + len(tt1)
+#        Write_LIST = [self.datelist[0]+self.datelist[1]+self.datelist[2], ] 
+#        CREATE_n_WRITE_INTO_TXT(filename,Write_LIST)
 
         print("            ======================================================================") 
+        return len(tt1)
 
+
+    def CREATE_n_WRITE_INTO_TXT(self, Write_LIST):
+        filelist = self.FILENAME
+        if(filename[0]=="/"):
+            filename = filename
+        elif((filename[0]=="C")&(filename[1]==":")):
+            filename = filename
+        else:
+            filename = os.getcwd() + "/" + filename   # get the path included filename
+        loca=len(filename)
+        for i in range (1,len(filename)+1):       # find the "/" location
+            if(filename[-i] == "/"):
+                loca = i-1
+                break
+        FILENAME = filename.replace(filename[:-loca],"")   # this is the shorten filename
+        filename_No_Txt = FILENAME.replace(".txt","")
+        infile = filename
+        OF = open(infile,"a+")
+        for i in range(len(Write_LIST)):
+            OF.write("%s" %Write_LIST[i])
+            if(i != len(Write_LIST)-1):
+                OF.write(" ")
+            if(i == len(Write_LIST)-1):
+                OF.write("\n")
+        OF.close()
 
 
     def ROBOT(self):
