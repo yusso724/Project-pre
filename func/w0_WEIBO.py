@@ -176,19 +176,20 @@ class WEIBO:
         print("        ======================================================================")
         print "        ACCESSING Web page: ", self.webpage
         TT = -1
-        
+        N_C = 0
         while finished == 0:
             self.ROBOT()
             TT = TT + 1
             self.driver1.set_page_load_timeout(5+TT*10)
             self.driver1.implicitly_wait(5+TT*10)
             try:
-                time.sleep(3)
-                if(TT<=2):
+#                time.sleep(3)
+                if(TT<=1):
                     self.driver1.get(self.webpage)
-                elif(TT<=5):
-                    self.driver1.refresh()
                 else:
+                    self.driver1.refresh()
+                    N_C = 1
+                if (N_C ==1):
                     print(" [Take a look] WEIBO without keyword mentioned...")
                     TEMP2 = 1
                     break
@@ -246,7 +247,7 @@ class WEIBO:
         LOCAL_NUM_WORD=0
         if(TEMP2 != 1):
             LOCAL_NUM_WORD = self.GREP_WORD(filename)
-
+            pass
         print("        ======================================================================")
         print("")
         if(LOCAL_NUM_WORD<4):
@@ -268,7 +269,7 @@ class WEIBO:
                 time.sleep(5)
                 tt1 = self.driver1.find_elements_by_css_selector('.red')
 #                self.ROBOT()
-                print("            Successfully!")
+                print("            Successful!")
                 time.sleep(3)
                 GET_TEXT=1
 #                for iii in range(len(tt1)):
