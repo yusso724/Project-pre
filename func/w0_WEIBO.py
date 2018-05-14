@@ -335,6 +335,12 @@ class WEIBO:
             print(" [NEED YOUR HELP] - 'Prove you are not ROBOT' on Web site *****")
             CONTINUE = 'test'
             while ((CONTINUE != "c") & (CONTINUE != "C")):
+                for sounds in range(7):
+                    sounds = sounds + 1
+                    sys.stdout.write('\a')
+                    sys.stdout.flush()
+#                    print('\a')
+                    time.sleep(0.5)
                 CONTINUE = raw_input("input 'C' to be continue : \n")
 #            time.sleep(2)
         print("                END of ROBOT TEST...")
