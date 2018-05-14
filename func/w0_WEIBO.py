@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+import os, sys
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -182,7 +183,10 @@ class WEIBO:
             self.driver1.implicitly_wait(5+TT*10)
             try:
                 time.sleep(3)
-                self.driver1.get(self.webpage)
+                if(TT<=2):
+                    self.driver1.get(self.webpage)
+                else:
+                    self.driver1.refresh()
                 TEMP2 = 1
                 WebDriverWait(self.driver1, 20+TT*10).until(EC.presence_of_element_located((By.CSS_SELECTOR,".red")))   #|(By.CSS_SELECTOR,".W_btn_a.btn_32px"))) 
                 TEMP2 = 2
@@ -237,7 +241,7 @@ class WEIBO:
 
         print("        ======================================================================")
         print("")
-        if(LOCAL_NUM_WORD<6):
+        if(LOCAL_NUM_WORD<4):
             return 0
         else:
             return 1
@@ -280,7 +284,7 @@ class WEIBO:
 
 
     def CREATE_n_WRITE_INTO_TXT(self, Write_LIST):
-        filelist = self.FILENAME
+        filename = self.FILENAME
         if(filename[0]=="/"):
             filename = filename
         elif((filename[0]=="C")&(filename[1]==":")):
