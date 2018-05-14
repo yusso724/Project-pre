@@ -188,8 +188,10 @@ class WEIBO:
                     self.driver1.get(self.webpage)
                 else:
                     self.driver1.refresh()
-                    N_C = 1
-                if (N_C ==1):
+                    N_C = N_C + 1
+                    element = WebDriverWait(self.driver1, 20+TT*30).until(EC.presence_of_element_located((By.CSS_SELECTOR,".red")))
+                if (N_C > 1):
+                    
                     print(" [Take a look] WEIBO without keyword mentioned...")
                     TEMP2 = 1
                     break
