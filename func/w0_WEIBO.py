@@ -152,7 +152,8 @@ class WEIBO:
         startDATE = str_s_year + "-" + str_s_month + "-" + str_s_day
         endDATE   = str_e_year + "-" + str_e_month + "-" + str_e_day
         RE_DATE = startDATE + ":" + endDATE
-        return [startDATE,endDATE,RE_DATE] 
+        END_DATE_FOR_TXT = str_e_year + str_e_month + str_e_day
+        return [startDATE,endDATE,RE_DATE,END_DATE_FOR_TXT] 
 
 
     def MAKE_WEIBO_URL(self, DATE_LIST_INPUT, KEYWORD = "%25E9%259B%25BE%25E9%259C%25BE", LOCAL_NUM=1, PAGE =1):
@@ -187,9 +188,7 @@ class WEIBO:
                     self.driver1.get(self.webpage)
                 else:
                     self.driver1.refresh()
-                TEMP2 = 1
-                WebDriverWait(self.driver1, 20+TT*10).until(EC.presence_of_element_located((By.CSS_SELECTOR,".red")))   #|(By.CSS_SELECTOR,".W_btn_a.btn_32px"))) 
-                TEMP2 = 2
+                element = WebDriverWait(self.driver1, 20+TT*10).until(EC.presence_of_element_located((By.CSS_SELECTOR,".red")))   #|(By.CSS_SELECTOR,".W_btn_a.btn_32px"))) 
 #                time.sleep(1)
                 WebWait=0
                 while WebWait==0:
@@ -215,8 +214,13 @@ class WEIBO:
                             time.sleep(3)
             except TimeoutException:
                 print("        TimeOut Exception... let's do it again... (Check internet connection/status)")
-                if TEMP2 == 1:
-                    print("        There is no such website... Moving to another district"); break
+                try:
+                    if WebDriverWait(self.driver1, 2+TT*1).until(EC.presence_of_element_located((By.CSS_SELECTOR,".noresult_tit"))):
+                        print("        There is no such website... Moving to another district"); 
+                        TEMP2 = 1
+                        break
+                except:
+                    pass
 #            except:
 #                print("        There is no such website... Moving to another district")
 #                break
@@ -253,14 +257,14 @@ class WEIBO:
         TEXT_FLAG = 0
         GET_TEXT=0
         print("            ======================================================================")
-        print("            Let's EXTRACT number of keyword mention! I will help you get keyword number on this page")
+        print("            Let's EXTRACT number of keyword mentioned! I will help you get keyword number on this page")
         while GET_TEXT==0:
             #self.ROBOT()
             try:
                 time.sleep(5)
                 tt1 = self.driver1.find_elements_by_css_selector('.red')
 #                self.ROBOT()
-                print("            Successfully catched!")
+                print("            Successfully!")
                 time.sleep(3)
                 GET_TEXT=1
 #                for iii in range(len(tt1)):
@@ -268,7 +272,7 @@ class WEIBO:
                     #s1 = (tt1[iii].text).encode('unicode-escape').decode('string_escape')
                     #print(s1)
             except:
-                print("                Something went wrong... I will try again to catch.")
+                print("                Something went wrong... I will try again..")
                 TEXT_FLAG = TEXT_FLAG+1            
                 if(TEXT_FLAG>5):
                     self.ROBOT()
