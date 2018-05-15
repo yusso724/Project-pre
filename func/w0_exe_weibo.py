@@ -5,15 +5,21 @@ from w0_WEIBO import WEIBO
 
 ID_junho = ""
 PASSWD_junho = ""
-
-weibo = WEIBO()
-weibo.AWAKE_BROWSER(filename = "PM_20180401_test.txt")
-weibo.LOGIN(ID=ID_junho,PASSWD=PASSWD_junho)
-
+infilename = "PM_20180401_test.txt"
 year = 2018
 day = 31
 month = 3
+
+weibo = WEIBO()
+weibo.AWAKE_BROWSER(filename = infilename)
+#weibo.LOGIN(ID=ID_junho,PASSWD=PASSWD_junho)
+
 for i in range(30):
+    if(i%3==0):
+        weibo.QUIT()
+        weibo = WEIBO()
+        weibo.AWAKE_BROWSER(filename = infilename)
+        weibo.LOGIN(ID=ID_junho,PASSWD=PASSWD_junho)
     INFO =  weibo.DATE_MAKER(year,month,day)
     for j in range(18):
         if(j<=8):
@@ -40,10 +46,3 @@ for i in range(30):
     day = INFO[2]+1
 weibo.QUIT()
 
-'''
-weibo_test = WEIBO()
-weibo_test.AWAKE_BROWSER()
-
-
-weibo_test.QUIT()
-'''

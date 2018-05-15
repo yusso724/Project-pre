@@ -54,16 +54,22 @@ class WEIBO:
             print("    Accessed LOGIN Page!")
             print("    ======================================================================")
 
-            self.driver1.find_element_by_id("loginname").clear()
-            self.driver1.find_element_by_id("loginname").send_keys(ID)
-            self.driver1.find_element_by_name("password").send_keys(PASSWD)
-            time.sleep(2)
-            self.driver1.find_element_by_css_selector(".W_btn_a.btn_32px").click()
-            time.sleep(2)
+            WRITE_NAME = 0
+            while WRITE_NAME == 0:
+                try:
+                    self.driver1.find_element_by_id("loginname").clear()
+                    self.driver1.find_element_by_id("loginname").send_keys(ID)
+                    self.driver1.find_element_by_name("password").send_keys(PASSWD)
+                    time.sleep(2)
+                    self.driver1.find_element_by_css_selector(".W_btn_a.btn_32px").click()
+                    time.sleep(2)
+                    WRITE_NAME = 1
+                    time.sleep(5)
+                except:
+                    print("    Something went wrong.. I will retry..")
 
             print "        Waiting for LOGIN Page Loading..."
 #            time.sleep(2)
-            time.sleep(5)
             if "login" in (self.driver1.current_url):
 #                print "        ",self.driver1.current_url
                 print("        LOGIN Problem ...  LOGIN Problem ...  LOGIN Problem ...  LOGIN Problem ...  ")
@@ -173,10 +179,10 @@ class WEIBO:
         TEMP1 = 0
         TEMP2 = 0
         finished =0
+        timeoutwait = 0
         print("        ======================================================================")
         print "        ACCESSING Web page: ", self.webpage
         TT = -1
-        N_C = 0
         while finished == 0:
             self.ROBOT()
             TT = TT + 1
@@ -186,16 +192,19 @@ class WEIBO:
 #                time.sleep(3)
                 if(TT<=1):
                     self.driver1.get(self.webpage)
+                    if((TT==0)|(timeoutwait != 1)):
+                        timeoutwait = 0
+                        10/0
                 else:
                     self.driver1.refresh()
-                    N_C = N_C + 1
-                    element = WebDriverWait(self.driver1, 20+TT*30).until(EC.presence_of_element_located((By.CSS_SELECTOR,".red")))
-                if (N_C > 1):
-                    
-                    print(" [Take a look] WEIBO without keyword mentioned...")
-                    TEMP2 = 1
-                    break
-                element = WebDriverWait(self.driver1, 20+TT*10).until(EC.presence_of_element_located((By.CSS_SELECTOR,".red")))   #|(By.CSS_SELECTOR,".W_btn_a.btn_32px"))) 
+#                    element = WebDriverWait(self.driver1, 20+TT*30).until(EC.presence_of_element_located((By.CSS_SELECTOR,".red")))
+                    element = WebDriverWait(self.driver1, 20+TT*30).until(EC.presence_of_element_located((By.CSS_SELECTOR,".face")))
+#                else:
+#                    print(" [Take a look] WEIBO without keyword mentioned...")
+#                    TEMP2 = 1
+#                    break
+#                element = WebDriverWait(self.driver1, 20+TT*10).until(EC.presence_of_element_located((By.CSS_SELECTOR,".red")))   #|(By.CSS_SELECTOR,".W_btn_a.btn_32px"))) 
+                element = WebDriverWait(self.driver1, 20+TT*30).until(EC.presence_of_element_located((By.CSS_SELECTOR,".face")))
 #                time.sleep(1)
                 WebWait=0
                 while WebWait==0:
@@ -219,6 +228,18 @@ class WEIBO:
                             print("        Refreshing the webpage...")
                             self.driver1.refresh()
                             time.sleep(3)
+            except ZeroDivisionError,e:
+                print("        If there is no WEIBO message, I will skip this page...")
+                try:
+                    if WebDriverWait(self.driver1, 5+TT*10).until(EC.presence_of_element_located((By.CSS_SELECTOR,".noresult_tit"))):
+                        print("        There is no such website... Moving to another district"); 
+                        TEMP2 = 1
+                        break
+                except TimeoutException:
+                    timeoutwait = 0
+                    pass
+                except: 
+                    timeoutwait = 1
             except TimeoutException:
                 print("        TimeOut Exception... let's do it again... (Check internet connection/status)")
                 try:
@@ -269,7 +290,8 @@ class WEIBO:
             #self.ROBOT()
             try:
                 time.sleep(5)
-                tt1 = self.driver1.find_elements_by_css_selector('.red')
+#                tt1 = self.driver1.find_elements_by_css_selector('.red')
+                tt1 = self.driver1.find_elements_by_css_selector('.face')
 #                self.ROBOT()
                 print("            Successful!")
                 time.sleep(3)
