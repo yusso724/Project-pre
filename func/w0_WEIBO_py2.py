@@ -54,19 +54,20 @@ class WEIBO:
             print("    Accessed LOGIN Page!")
             print("    ======================================================================")
 
-            WRITE_NAME = 0
-            while WRITE_NAME == 0:
-                try:
-                    self.driver1.find_element_by_id("loginname").clear()
-                    self.driver1.find_element_by_id("loginname").send_keys(ID)
-                    self.driver1.find_element_by_name("password").send_keys(PASSWD)
-                    time.sleep(2)
-                    self.driver1.find_element_by_css_selector(".W_btn_a.btn_32px").click()
-                    time.sleep(2)
-                    WRITE_NAME = 1
-                    time.sleep(5)
-                except:
-                    print("    Something went wrong.. I will retry..")
+            if(finished == 1):
+                WRITE_NAME = 0
+                while WRITE_NAME == 0:
+                    try:
+                        self.driver1.find_element_by_id("loginname").clear()
+                        self.driver1.find_element_by_id("loginname").send_keys(ID)
+                        self.driver1.find_element_by_name("password").send_keys(PASSWD)
+                        time.sleep(2)
+                        self.driver1.find_element_by_css_selector(".W_btn_a.btn_32px").click()
+                        time.sleep(2)
+                        WRITE_NAME = 1
+                        time.sleep(5)
+                    except:
+                        print("    Something went wrong.. I will retry..")
 
             print "        Waiting for LOGIN Page Loading..."
 #            time.sleep(2)
