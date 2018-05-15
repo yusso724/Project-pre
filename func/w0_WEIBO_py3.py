@@ -228,7 +228,7 @@ class WEIBO:
                             print("        Refreshing the webpage...")
                             self.driver1.refresh()
                             time.sleep(3)
-            except ZeroDivisionError,e:
+            except ZeroDivisionError:
                 print("        If there is no WEIBO message, I will skip this page...")
                 try:
                     if WebDriverWait(self.driver1, 5+TT*10).until(EC.presence_of_element_located((By.CSS_SELECTOR,".noresult_tit"))):
