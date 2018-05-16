@@ -242,7 +242,7 @@ class WEIBO:
                     timeoutwait = 1
             except TimeoutException:
                 print("        TimeOut Exception... let's do it again... (Check internet connection/status)")
-                if(TT >7):
+                if(TT >5):
                     print(" Breaking out this Webpage Due to webpage is not responding... (MAYBE loss of Internet Connection) ")
                     break;
                 try:
