@@ -31,7 +31,8 @@ def Daily_data(filename):
 
 
 def main():
-    inputfile = "../data_txt/BEIJING_Aqi/python_Months_txt/Aqi_Beijing_HoliRCS_M201404.txt"
+#    inputfile = "../data_txt/BEIJING_Aqi/python_Months_txt/Aqi_Beijing_HoliRCS_M201404.txt"
+    inputfile = "../data_txt/BEIJING_Aqi/month201404.txt"
     FileNameList = Daily_data(inputfile)
     print(FileNameList)
 
