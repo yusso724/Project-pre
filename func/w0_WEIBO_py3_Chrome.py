@@ -242,6 +242,9 @@ class WEIBO:
                     timeoutwait = 1
             except TimeoutException:
                 print("        TimeOut Exception... let's do it again... (Check internet connection/status)")
+                if(TT >7):
+                    print(" Breaking out this Webpage Due to webpage is not responding... (MAYBE loss of Internet Connection) ")
+                    break;
                 try:
                     if WebDriverWait(self.driver1, 2+TT*1).until(EC.presence_of_element_located((By.CSS_SELECTOR,".noresult_tit"))):
                         print("        There is no such website... Moving to another district");
