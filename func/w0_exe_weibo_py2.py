@@ -6,9 +6,9 @@ from w0_WEIBO_py2 import WEIBO
 ID_junho = ""
 PASSWD_junho = ""
 infilename = "PM_20180401_test.txt"
-year = 2018
 day = 31
 month = 3
+year = 2018
 
 weibo = WEIBO()
 weibo.AWAKE_BROWSER(filename = infilename)
@@ -42,6 +42,7 @@ for i in range(30):
     INPUT_LIST = [INFO_STR[3], weibo.COUNT]
     weibo.CREATE_n_WRITE_INTO_TXT(INPUT_LIST)
     weibo.GERP_WORD_to_zero()
+    year= INFO[0]
     month = INFO[1]
     day = INFO[2]+1
 weibo.QUIT()
