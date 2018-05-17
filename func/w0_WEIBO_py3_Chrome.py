@@ -67,6 +67,11 @@ class WEIBO:
                     time.sleep(5)
                 except:
                     print("    Something went wrong.. I will retry..")
+                    try:
+                        self.driver1.refresh()
+                        time.sleep(2)
+                    except:
+                        pass
 
             print ("        Waiting for LOGIN Page Loading...")
 #            time.sleep(2)
