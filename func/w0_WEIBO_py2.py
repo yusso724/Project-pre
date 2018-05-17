@@ -56,6 +56,7 @@ class WEIBO:
 
             if(finished == 1):
                 WRITE_NAME = 0
+                EJ_WAIT = 0
                 while WRITE_NAME == 0:
                     try:
                         self.driver1.find_element_by_id("loginname").clear()
@@ -70,7 +71,8 @@ class WEIBO:
                         print("    Something went wrong.. I will retry..")
                         try:
                             self.driver1.refresh()
-                            time.sleep(2)
+                            time.sleep(2 + EJ_WAIT*5)
+                            EJ_WAIT = EJ_WAIT + 1
                         except:
                             pass
 
