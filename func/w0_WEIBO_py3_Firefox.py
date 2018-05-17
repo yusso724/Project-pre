@@ -164,7 +164,7 @@ class WEIBO:
             str_e_day = str(DATE_LIST[5])
         startDATE = str_s_year + "-" + str_s_month + "-" + str_s_day
         endDATE   = str_e_year + "-" + str_e_month + "-" + str_e_day
-        RE_DATE = startDATE + ":" + endDATE
+        RE_DATE = startDATE + ":" + startDATE
         END_DATE_FOR_TXT = str_e_year + str_e_month + str_e_day
         return [startDATE,endDATE,RE_DATE,END_DATE_FOR_TXT] 
 
