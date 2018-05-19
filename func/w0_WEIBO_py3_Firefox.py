@@ -90,6 +90,9 @@ class WEIBO:
                 if(login_flag>2):
 #                    ID = input("PLEASE, input ID : \n")
 #                    PASSWD = input("PLEASE, input Password : \n")
+                    for sounds in range(7):
+                        sys.stdout.write('\a')
+                        sys.stdout.flush()
                     QWER = input("Login problem... Please login on webpage by yourself! (press anykey to be continue!) \n")
                     return
                 login_flag = login_flag + 1 
@@ -395,7 +398,7 @@ class WEIBO:
             CONTINUE = 'test'
             while ((CONTINUE != "c") & (CONTINUE != "C")):
                 for sounds in range(7):
-                    sounds = sounds + 1
+#                    sounds = sounds + 1
                     sys.stdout.write('\a')
                     sys.stdout.flush()
 #                    print('\a')

@@ -89,6 +89,9 @@ class WEIBO:
                     self.driver1.quit()
                     break
                 if(login_flag>2):
+                    for sounds in range(7):
+                        sys.stdout.write('\a')
+                        sys.stdout.flush()
                     QWER = input("Login problem... Please login on webpage by yourself! (press anykey to be continue!) \n")
                     return
 #                    ID = raw_input("PLEASE, input ID : \n")
@@ -397,7 +400,7 @@ class WEIBO:
             CONTINUE = 'test'
             while ((CONTINUE != "c") & (CONTINUE != "C")):
                 for sounds in range(7):
-                    sounds = sounds + 1
+#                    sounds = sounds + 1
                     sys.stdout.write('\a')
                     sys.stdout.flush()
 #                    print('\a')
