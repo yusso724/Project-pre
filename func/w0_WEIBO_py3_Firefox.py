@@ -88,8 +88,10 @@ class WEIBO:
                     self.driver1.quit()
                     break
                 if(login_flag>2):
-                    ID = input("PLEASE, input ID : \n")
-                    PASSWD = input("PLEASE, input Password : \n")
+#                    ID = input("PLEASE, input ID : \n")
+#                    PASSWD = input("PLEASE, input Password : \n")
+                    QWER = input("Login problem... Please login on webpage by yourself! (press anykey to be continue!)"
+                    return
                 login_flag = login_flag + 1 
                 finished = 0
         print("    ======================================================================")
