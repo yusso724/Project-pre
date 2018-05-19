@@ -234,7 +234,7 @@ class BAIDU_INDEX:
                 im = Image.open(BytesIO(png))
                 im = im.crop((left, top, right, bottom))
                 try:
-                    im.save(str("/Users/leejunho/Desktop/git/python3Env/group_study/project_pre/func/AA.png"))
+                    im.save(str("AA.png"))
                     SAVE_IMAGE = 1
                 except:
                     print("Image is not saving, retry in 3 second!")
