@@ -90,7 +90,7 @@ class WEIBO:
                 if(login_flag>2):
 #                    ID = input("PLEASE, input ID : \n")
 #                    PASSWD = input("PLEASE, input Password : \n")
-                    QWER = input("Login problem... Please login on webpage by yourself! (press anykey to be continue!)")
+                    QWER = input("Login problem... Please login on webpage by yourself! (press anykey to be continue!) \n")
                     return
                 login_flag = login_flag + 1 
                 finished = 0
