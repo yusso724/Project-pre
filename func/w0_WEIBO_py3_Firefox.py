@@ -261,9 +261,9 @@ class WEIBO:
                             sys.stdout.flush()
 #                            print('\a')
                         time.sleep(0.5)
-                        count_yourself = raw_input("input WEIBO message number : \n")
+                        count_yourself = input("input WEIBO message number : \n")
                         print  count_yourself, "input as WEIBO message number of this page! \n"
-                        CONTINUE = raw_input("input 'C' if right, press any other key to be re-input : \n")
+                        CONTINUE = input("input 'C' if right, press any other key to be re-input : \n")
                     self.COUNT = self.COUNT + int(count_yourself)
                     TEMP2 = 1
                     break;
