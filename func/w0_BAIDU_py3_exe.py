@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from w0_BAIDU_py2_Firefox import BAIDU_INDEX
+from w0_BAIDU_py3_Firefox import BAIDU_INDEX
 
 ID = "skyblue12"
 PW = ""
