@@ -279,8 +279,8 @@ class BAIDU_INDEX:
             time.sleep(1)
             infile = open("AA_out.txt","r")
             for line in infile:
-                DATA = line.replace("\n","")
-                DATA = DATA.replace(". ","")
+                DATA = line.replace("\n",""); DATA = DATA.replace("o","0"); DATA = DATA.replace("O","0");
+                DATA = DATA.replace(". ",""); DATA = DATA.replace("'","");
                 DATA = DATA.replace(".","")
                 DATA = DATA.replace("\n","")
                 DATA = DATA.replace(" ","")
