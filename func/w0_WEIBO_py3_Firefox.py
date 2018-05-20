@@ -273,7 +273,7 @@ class WEIBO:
                     TEMP2 = 1
                     break;
                 try:
-                    if WebDriverWait(self.driver1, 2+TT*1).until(EC.presence_of_element_located((By.CSS_SELECTOR,".noresult_tit"))):
+                    if WebDriverWait(self.driver1, 45+TT*10).until(EC.presence_of_element_located((By.CSS_SELECTOR,".noresult_tit"))):
                         print("        There is no such website... Moving to another district");
                         TEMP2 = 1
                         break
