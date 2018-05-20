@@ -280,7 +280,7 @@ class BAIDU_INDEX:
             infile = open("AA_out.txt","r")
             for line in infile:
                 DATA = line.replace("\n",""); DATA = DATA.replace("o","0"); DATA = DATA.replace("O","0");
-                DATA = DATA.replace(". ",""); DATA = DATA.replace("'","");
+                DATA = DATA.replace(". ",""); DATA = DATA.replace("'",""); DATA = DATA.replace("B","8");
                 DATA = DATA.replace(".","")
                 DATA = DATA.replace("\n","")
                 DATA = DATA.replace(" ","")
